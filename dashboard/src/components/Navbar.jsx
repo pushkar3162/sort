@@ -4,11 +4,11 @@ import Themetoggle from "./Themetoggle";
 import Searchbar from "./Searchbar";
 
 const Navbar = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("auth_token"); // Remove token from storage
-    navigate("/"); // Redirect to login page
+    localStorage.removeItem("auth_token");
+    navigate("/");
   };
 
   return (
@@ -25,12 +25,19 @@ const Navbar = () => {
           <span className="text-white d-none d-md-block fw-bold">ADMIN</span>
         </div>
 
-        {/* Search Bar */}
-        <div className="flex-grow-1 mx-3">
+        <div className="flex-grow-1 mx-5">
           <Searchbar />
         </div>
 
         <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
+          <li className="nav-item">
+            <button 
+              className="btn btn-light fw-bold"
+              onClick={() => navigate("/add-user")}
+            >
+              + Invite Members
+            </button>
+          </li>
           <li className="nav-item">
             <Themetoggle />
           </li>
