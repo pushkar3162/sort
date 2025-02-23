@@ -40,6 +40,12 @@ function Sidebar() {
               User Activity Log
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link d-flex align-items-center gap-2" to="/document-logs">
+              <i className="bi bi-list-check"></i>
+              Document Log
+            </Link>
+          </li>
         </ul>
 
         <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase"></h6>
