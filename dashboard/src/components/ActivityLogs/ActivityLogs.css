@@ -1,0 +1,137 @@
+/* General Container */
+.container {
+    margin: 20px auto;
+    max-width: 900px;
+    font-family: "Open Sans", "Lora", sans-serif;
+    background: linear-gradient(to right, #F4EBDC, #E8D8C4); /* Soft Beige Gradient */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: "Space Grotesk", "Montserrat ExtraBold", sans-serif;
+    color: #3A506B; /* Deep Steel Blue */
+    margin-bottom: 20px;
+}
+
+/* Filters Section */
+.filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+
+.filters input {
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #B08968; /* Mocha Brown */
+    border-radius: 8px;
+    width: 100%;
+    background-color: #FFF;
+    font-family: "Open Sans", sans-serif;
+    transition: 0.3s ease-in-out;
+}
+
+.filters input:focus {
+    border-color: #3A506B; /* Deep Steel Blue */
+    box-shadow: 0px 0px 5px rgba(58, 80, 107, 0.5);
+}
+
+/* Buttons */
+.filters button {
+    padding: 12px 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3A506B; /* Deep Steel Blue */
+    color: white;
+    font-family: "Lexend", "Inter", sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.filters button:hover {
+    background-color: #264653; /* Deep Teal */
+    transform: scale(1.05);
+}
+
+/* Activity Table */
+.activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Open Sans", sans-serif;
+}
+
+.activity-table th,
+.activity-table td {
+    border: 1px solid #A9927D; /* Muted Taupe */
+    padding: 12px;
+    text-align: left;
+}
+
+/* Table Headers */
+.activity-table th {
+    background-color: #D8C3A5; /* Warm Sand */
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    color: #3A506B; /* Deep Steel Blue */
+    padding: 14px;
+    text-transform: uppercase;
+}
+
+/* Alternating Row Colors */
+.activity-table tr:nth-child(even) {
+    background-color: #F5E1C7; /* Soft Sand */
+}
+
+.activity-table tr:nth-child(odd) {
+    background-color: #FFF;
+}
+
+/* Row Hover Effect */
+.activity-table tr:hover {
+    background-color: #E29578; /* Soft Coral */
+    color: white;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Action-Specific Highlighting */
+.activity-table tr td:nth-child(2) { /* Action Column */
+    font-weight: bold;
+}
+
+/* Danger Highlight for Deleted Documents */
+.activity-table tr:nth-child(even) td:nth-child(2) {
+    color: #C1121F; /* Rich Red */
+}
+
+/* Back Button */
+.table-container {
+    margin-bottom: 20px; 
+    text-align: center; 
+}
+
+.back-button {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 12px 18px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #A4161A; /* Rich Red */
+    color: white;
+    font-family: "Poppins Medium", sans-serif;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.back-button:hover {
+    background-color: #F77F00; /* Warm Orange */
+    transform: scale(1.05);
+}

@@ -1,40 +1,44 @@
 import React from "react";
+import { Link } from "react-router-dom"; // ✅ Import Link for navigation
 
 function Sidebar() {
   return (
     <div
-      className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary vh-100  fs-5"
+      className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary vh-100 fs-5"
       style={{ width: "300px" }}
     >
       <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <a
-              className="nav-link d-flex align-items-center gap-2 active"
-              aria-current="page"
-              href="#"
-            >
+            <Link className="nav-link d-flex align-items-center gap-2 active" to="/dashboard">
               <i className="bi bi-house-fill"></i>
               Dashboard
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link d-flex align-items-center gap-2" href="#">
+            <Link className="nav-link d-flex align-items-center gap-2" to="#">
               <i className="bi bi-chat-left"></i>
               Messages
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link d-flex align-items-center gap-2" href="#">
+            <Link className="nav-link d-flex align-items-center gap-2" to="#">
               <i className="bi bi-app-indicator"></i>
               Notifications
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link d-flex align-items-center gap-2" href="#">
+            <Link className="nav-link d-flex align-items-center gap-2" to="#">
               <i className="bi bi-person-fill"></i>
               Profile
-            </a>
+            </Link>
+          </li>
+          {/* ✅ User Activity Log Button with Link */}
+          <li className="nav-item">
+            <Link className="nav-link d-flex align-items-center gap-2" to="/activity-logs">
+              <i className="bi bi-list-check"></i>
+              User Activity Log
+            </Link>
           </li>
         </ul>
 
@@ -44,16 +48,16 @@ function Sidebar() {
 
         <ul className="nav flex-column mb-auto">
           <li className="nav-item">
-            <a className="nav-link d-flex align-items-center gap-2" href="#">
+            <Link className="nav-link d-flex align-items-center gap-2" to="#">
               <i className="bi bi-gear-wide-connected"></i>
               Settings
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link d-flex align-items-center gap-2" href="#">
+            <Link className="nav-link d-flex align-items-center gap-2" to="#">
               <i className="bi bi-door-closed"></i>
               Sign out
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
