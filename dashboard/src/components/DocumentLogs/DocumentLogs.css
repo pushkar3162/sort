@@ -1,0 +1,165 @@
+/* General Styling */
+body {
+    background-color: #f3f4f6; /* Tailwind: bg-gray-100 */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Container */
+  .document-logs-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px; /* Tailwind: p-6 */
+  }
+  
+  /* Card */
+  .document-logs-card {
+    width: 100%;
+    max-width: 64rem; /* Tailwind: max-w-5xl */
+    background-color: white;
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind: shadow-lg */
+    padding: 24px; /* Tailwind: p-6 */
+  }
+  
+  /* Title */
+  .document-logs-title {
+    font-size: 1.5rem; /* Tailwind: text-2xl */
+    font-weight: 600; /* Tailwind: font-semibold */
+    text-align: center;
+    color: #374151; /* Tailwind: text-gray-700 */
+    margin-bottom: 24px; /* Tailwind: mb-6 */
+  }
+  
+  /* Filter Section */
+  .document-logs-filter-section {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for mobile */
+    gap: 16px; /* Tailwind: gap-4 */
+    margin-bottom: 24px; /* Tailwind: mb-6 */
+  }
+  
+  /* Responsive Grid for Larger Screens */
+  @media (min-width: 768px) {
+    .document-logs-filter-section {
+      grid-template-columns: repeat(3, 1fr); /* Tailwind: md:grid-cols-3 */
+    }
+  }
+  
+  /* Input Fields */
+  .document-logs-filter-input {
+    width: 100%;
+    padding: 12px; /* Tailwind: p-3 */
+    border: 1px solid #d1d5db; /* Tailwind: border-gray-300 */
+    border-radius: 6px; /* Tailwind: rounded-md */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-sm */
+  }
+  
+  .document-logs-filter-input:focus {
+    outline: none;
+    border-color: #3b82f6; /* Tailwind: focus:ring-blue-400 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  }
+  
+  /* Buttons */
+  .document-logs-btn {
+    flex: 1; /* Tailwind: flex-1 */
+    padding: 12px 20px; /* Tailwind: px-5 py-3 */
+    border: none;
+    border-radius: 6px; /* Tailwind: rounded-md */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-md */
+  }
+  
+  .document-logs-apply-btn {
+    background-color: #3b82f6; /* Tailwind: bg-blue-500 */
+    color: white;
+  }
+  
+  .document-logs-apply-btn:hover {
+    background-color: #2563eb; /* Tailwind: hover:bg-blue-600 */
+  }
+  
+  .document-logs-clear-btn {
+    background-color: #9ca3af; /* Tailwind: bg-gray-400 */
+    color: white;
+  }
+  
+  .document-logs-clear-btn:hover {
+    background-color: #6b7280; /* Tailwind: hover:bg-gray-500 */
+  }
+  
+  /* Table Styling */
+  .document-logs-table-container {
+    overflow: hidden;
+    border-radius: 8px; /* Tailwind: rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-md */
+    border: 1px solid #e5e7eb; /* Tailwind: border */
+  }
+  
+  .document-logs-logs-table {
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+  }
+  
+  /* Table Head */
+  .document-logs-logs-table th {
+    background-color: #2563eb; /* Tailwind: bg-blue-600 */
+    color: white;
+    text-align: left;
+    padding: 12px 24px; /* Tailwind: py-3 px-6 */
+  }
+  
+  /* Table Rows */
+  .document-logs-logs-table td {
+    padding: 12px 24px; /* Tailwind: py-3 px-6 */
+  }
+  
+  .document-logs-even-row {
+    background-color: #f9fafb; /* Tailwind: bg-gray-50 */
+  }
+  
+  .document-logs-odd-row {
+    background-color: white; /* Tailwind: bg-white */
+  }
+  
+  /* Hover Effect */
+  .document-logs-logs-table tr:hover {
+    background-color: #dbeafe; /* Tailwind: hover:bg-blue-100 */
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  /* No Data Message */
+  .document-logs-no-data {
+    text-align: center;
+    padding: 15px;
+    color: gray;
+  }
+  
+  /* Back Button */
+  .document-logs-back-button {
+    text-align: center;
+    margin-top: 24px; /* Tailwind: mt-6 */
+  }
+  
+  .document-logs-back-btn {
+    background-color: #ef4444; /* Tailwind: bg-red-500 */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .document-logs-back-btn:hover {
+    background-color: #dc2626; /* Tailwind: hover:bg-red-600 */
+  }
