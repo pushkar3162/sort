@@ -10,7 +10,10 @@ function Sidebar() {
       <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <Link className="nav-link d-flex align-items-center gap-2 active" to="/dashboard">
+            <Link
+              className="nav-link d-flex align-items-center gap-2 active"
+              to="/dashboard"
+            >
               <i className="bi bi-house-fill"></i>
               Dashboard
             </Link>
@@ -35,13 +38,19 @@ function Sidebar() {
           </li>
           {/* ✅ User Activity Log Button with Link */}
           <li className="nav-item">
-            <Link className="nav-link d-flex align-items-center gap-2" to="/activity-logs">
+            <Link
+              className="nav-link d-flex align-items-center gap-2"
+              to="/activity-logs"
+            >
               <i className="bi bi-list-check"></i>
               User Activity Log
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link d-flex align-items-center gap-2" to="/document-logs">
+            <Link
+              className="nav-link d-flex align-items-center gap-2"
+              to="/document-logs"
+            >
               <i className="bi bi-list-check"></i>
               Document Log
             </Link>
@@ -57,6 +66,15 @@ function Sidebar() {
             <Link className="nav-link d-flex align-items-center gap-2" to="#">
               <i className="bi bi-gear-wide-connected"></i>
               Settings
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className="nav-link d-flex align-items-center gap-2"
+              to="/doc"
+            >
+              <i class="bi bi-file-earmark-medical"></i>
+              My Documents
             </Link>
           </li>
           <li className="nav-item">

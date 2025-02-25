@@ -8,7 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import ActivityLogs from "./components/ActivityLogs/ActivityLogs"; // ✅ Import ActivityLogs
 import RoleBasedUI from "./components/RoleBasedUI";
 import MembersList from "./components/MembersList";
-import DocumentLogs from "./components/DocumentLogs/DocumentLogs"
+import DocumentLogs from "./components/DocumentLogs/DocumentLogs";
+import Doc from "./components/Doc";
 
 const App = () => {
   const [members, setMembers] = useState([]); // Centralized members state
@@ -17,16 +18,18 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<AuthForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/activity-logs" element={<ActivityLogs />} /> {/* ✅ Keep Activity Logs */}
+        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/activity-logs" element={<ActivityLogs />} />{" "}
+        {/* ✅ Keep Activity Logs */}
         <Route path="/document-logs" element={<DocumentLogs />} />
-        <Route 
-          path="/add-user" 
-          element={<RoleBasedUI members={members} setMembers={setMembers} />} 
+        <Route path="/doc" element={<Doc />} />
+        <Route
+          path="/add-user"
+          element={<RoleBasedUI members={members} setMembers={setMembers} />}
         />
-        <Route 
-          path="/members-list" 
-          element={<MembersList members={members} setMembers={setMembers} />} 
+        <Route
+          path="/members-list"
+          element={<MembersList members={members} setMembers={setMembers} />}
         />
       </Routes>
     </Router>
