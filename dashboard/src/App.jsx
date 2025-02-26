@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import ActivityLogs from "./components/ActivityLogs/ActivityLogs"; // ✅ Import ActivityLogs
 import RoleBasedUI from "./components/RoleBasedUI";
 import MembersList from "./components/MembersList";
+import UploadForm from "./components/UploadForm";
+import Notifications from "./components/Notification";
 import DocumentLogs from "./components/DocumentLogs/DocumentLogs";
 import Doc from "./components/Doc";
 
@@ -19,6 +21,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AuthForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/upload" element={<UploadForm />} />
+        <Route path="/notifications" element={<Notifications />} />
+
         <Route path="/activity-logs" element={<ActivityLogs />} />{" "}
         {/* ✅ Keep Activity Logs */}
         <Route path="/document-logs" element={<DocumentLogs />} />
