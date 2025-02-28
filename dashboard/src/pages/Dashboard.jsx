@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+
 import { Routes, Route } from "react-router-dom";
 import FileExplorer from "../components/FileExplorer";
 import ActivityLogs from "../components/ActivityLogs/ActivityLogs"; // ✅ Import ActivityLogs component
