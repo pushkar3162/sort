@@ -20,13 +20,14 @@ const Folder = ({ folder, fetchFolders, moveFolder, setSelectedFolder }) => {
             folderName: folder.name,
             creationDate: "2023-10-01",
             lastModified: "2023-10-05",
-            size: "2 MB",
+            description:"none",
         },
         file: {
             fileName: "example.txt",
             creationDate: "2023-10-02",
             lastModified: "2023-10-04",
-            size: "500 KB",
+            description:"none",
+
         },
     };
 
