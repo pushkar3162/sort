@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useDrag, useDrop } from "react-dnd";
 import Modal from "react-modal";
 
 // Set the root element for accessibility (required by react-modal)
@@ -13,7 +12,7 @@ const Folder = ({ folder, fetchFolders, moveFolder, setSelectedFolder }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editedMetadata, setEditedMetadata] = useState({});
-
+    
     // Dummy metadata for folders and files
     const dummyMetadata = {
         folder: {
@@ -177,16 +176,16 @@ const Folder = ({ folder, fetchFolders, moveFolder, setSelectedFolder }) => {
                         <li
                             key={file._id}
                             style={{
-                                padding: "2px 5px",
+                                padding: "1px 1px",
                                 background: "#eef",
                                 margin: "2px 0",
-                                borderRadius: "3px",
+                                borderRadius: "2px",
                                 position: "relative",
                             }}
                         >
                             📄 {file.name}
                             <span
-                                style={{ position: "absolute", right: "10px", cursor: "pointer" }}
+                                style={{ position: "relative", right: "12px", cursor: "pointer" }}
                                 onClick={(e) => handleMetadataClick(e, file._id, "file")}
                             >
                                 ⋮
@@ -224,16 +223,45 @@ const Folder = ({ folder, fetchFolders, moveFolder, setSelectedFolder }) => {
                         display: "flex",
                         flexDirection: "column",
                         gap: "5px",
+                        zIndex: 1000,
                     }}
-                    onClick={closeContextMenu}
+                    onClick={(e) => e.stopPropagation()} // Prevent closing on click inside
                 >
-                    <button style={buttonStyle} onClick={renameFolder}>
-                        Rename
+                    <button style={{
+                        padding: "8px 12px",
+                        background: "#f8f9fa",
+                        border: "none",
+                        cursor: "pointer",
+                        transition: "background 0.3s",
+                    }}
+                    onClick={renameFolder}
+            onMouseEnter={(e) => (e.target.style.background = "#e9ecef")}
+            onMouseLeave={(e) => (e.target.style.background = "#f8f9fa")}
+                >Rename
                     </button>
-                    <button style={buttonStyle} onClick={moveFolderPrompt}>
+                    <button style={{
+                    padding: "8px 12px",
+                    background: "#f8f9fa",
+                border: "none",
+                cursor: "pointer",
+                transition: "background 0.3s",
+                    }}
+            onClick={moveFolderPrompt}
+            onMouseEnter={(e) => (e.target.style.background = "#e9ecef")}
+            onMouseLeave={(e) => (e.target.style.background = "#f8f9fa")}>
                         Move
                     </button>
-                    <button style={buttonStyle} onClick={deleteFolder}>
+
+                    <button style={{
+                padding: "8px 12px",
+                background: "#f8f9fa",
+                border: "none",
+                cursor: "pointer",
+                transition: "background 0.3s",
+            }}
+            onClick={deleteFolder}
+            onMouseEnter={(e) => (e.target.style.background = "#e9ecef")}
+            onMouseLeave={(e) => (e.target.style.background = "#f8f9fa")}    >
                         Delete
                     </button>
                 </div>
