@@ -156,9 +156,15 @@ const FileExplorer = () => {
             padding: 10px;
             background: #f9f9f9;
             border-radius: 0px;
+<<<<<<< HEAD
             max-width: 1000px;
             position: relative;
             bottom: 630px ;
+=======
+            max-width: 1220px;
+            position: relative;
+            bottom: 800px ;
+>>>>>>> upstream/main
             left :300px;
             right :20px;
           
