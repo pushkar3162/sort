@@ -130,7 +130,7 @@ const Folder = ({ folder, fetchFolders, moveFolder, setSelectedFolder }) => {
     const renameFolder = async () => {
         const newName = prompt("Enter new folder name:");
         if (newName) {
-            await axios.put(`http://localhost:5000/api/folders/${folder._id}`, { name: newName });
+            await axios.put(`http://localhost:5000/api/folders/${folder._id}, { name: newName }`);
             fetchFolders();
         }
         setContextMenu(null);

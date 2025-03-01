@@ -118,7 +118,8 @@ const FileExplorer = () => {
             className="btn"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            <FaSort /> Sort By {sortBy && (`${sortBy}`)}
+           <FaSort /> Sort By {sortBy && `(${sortBy})`}
+
           </button>
           <button className="btn" onClick={fetchFolders}>
             <FaSyncAlt /> Refresh
@@ -155,9 +156,9 @@ const FileExplorer = () => {
             padding: 10px;
             background: #f9f9f9;
             border-radius: 0px;
-            max-width: 1220px;
+            max-width: 1000px;
             position: relative;
-            bottom: 800px ;
+            bottom: 630px ;
             left :300px;
             right :20px;
           

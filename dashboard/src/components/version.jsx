@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000";
 
-function App() {
+function Version() {
   const [docName, setDocName] = useState("");
   const [file, setFile] = useState(null);
   const [history, setHistory] = useState([]);
@@ -356,4 +356,4 @@ function App() {
   );
 }
 
-export default App;
+export default Version;

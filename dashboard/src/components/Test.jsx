@@ -28,7 +28,7 @@ useEffect(() => {
         className="folder-contents"
         style={{
           position: "absolute",
-          bottom: "537px",
+          bottom: "350px",
           left: "400px",
           right: "40px",
         }}
