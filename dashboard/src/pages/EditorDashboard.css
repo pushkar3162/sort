@@ -37,7 +37,7 @@
 /* Navbar Styling */
 .editor-navbar {
     width: 100%;
-    background-color: #3b5998; /* Dark blue */
+    background-color: #ff0000; /* Dark blue */
     color: white;
     padding: 10px;
     text-align: center;
@@ -46,7 +46,7 @@
 
 /* Button Styling */
 .editor-button {
-    background-color: #3b5998;
+    background-color: #8B5E3B;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -70,3 +70,18 @@
         flex-direction: column;
     }
 }
+
+.file-explorer {
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 0px;
+    max-width: 1000px;
+    position: relative;
+    margin-top: 50px; /* Adjust this value as needed */
+    left: 300px;
+    right: 20px;
+  }
+  
+
+
+

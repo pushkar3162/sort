@@ -103,7 +103,7 @@ const FileExplorer = () => {
     
     <DndProvider backend={HTML5Backend}>
       <div className="file-explorer">
-        <h1 className="title">📂 File Manager</h1>
+        {/* <h1 className="title">📂 File Manager</h1> */}
         <div className="toolbar">
           <input
             className="search-input"
@@ -154,7 +154,7 @@ const FileExplorer = () => {
         {`
         .file-explorer {
             padding: 10px;
-            background: #f9f9f9;
+            background:rgb(247, 246, 246);
             border-radius: 0px;
             max-width: 1000px;
             position: relative;
@@ -180,15 +180,16 @@ const FileExplorer = () => {
             border: 1px solid #ccc;
           }
           .btn {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
+            background: "white";
+            color: black;
+            border: 3px;
+            padding: 14px 19px;
+            border-radius: 12px;
             cursor: pointer;
+            box-shadow: 1px 1px 1px gray;
           }
           .btn:hover {
-            background: #0056b3;
+            background: lightgray;
           }
           .dropdown {
             background: white;

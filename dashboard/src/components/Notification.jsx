@@ -48,7 +48,7 @@ const Notifications = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background-color: #fc0000; /* The red from your snippet */
+          background-color:rgb(0, 105, 252); /* The red from your snippet */
           color: #fff;
           padding: 0.75rem 1rem;
         }
@@ -72,8 +72,8 @@ const Notifications = () => {
 
         .invite-btn,
         .logout-btn {
-          background-color: #fff;
-          color: #fc0000;
+          background-color: white;
+          color: black;
           border: none;
           border-radius: 4px;
           padding: 0.5rem 1rem;
@@ -110,7 +110,7 @@ const Notifications = () => {
         }
 
         .sidebar-menu li.active a {
-          color: #fc0000;
+          color:rgb(18, 14, 14);
           font-weight: 700;
         }
 

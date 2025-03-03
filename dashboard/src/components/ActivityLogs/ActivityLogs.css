@@ -3,7 +3,7 @@
     margin: 20px auto;
     max-width: 900px;
     font-family: "Open Sans", "Lora", sans-serif;
-    background: linear-gradient(to right, #F4EBDC, #E8D8C4); /* Soft Beige Gradient */
+    background: linear-gradient(to right, #efedeb, #e5e1dd); /* Soft Beige Gradient */
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -49,15 +49,15 @@
     font-size: 15px;
     border: none;
     border-radius: 8px;
-    background-color: #3A506B; /* Deep Steel Blue */
-    color: white;
+    background-color: white; /* Deep Steel Blue */
+    color: black;
     font-family: "Lexend", "Inter", sans-serif;
     cursor: pointer;
     transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 .filters button:hover {
-    background-color: #264653; /* Deep Teal */
+    background-color: lightgray; /* Deep Teal */
     transform: scale(1.05);
 }
 
@@ -70,19 +70,20 @@
 
 .activity-table th,
 .activity-table td {
-    border: 1px solid #A9927D; /* Muted Taupe */
+    border: 1px solid black; /* Muted Taupe */
     padding: 12px;
     text-align: left;
 }
 
 /* Table Headers */
 .activity-table th {
-    background-color: #D8C3A5; /* Warm Sand */
+    background-color: white; /* Warm Sand */
     font-weight: bold;
     font-family: "Montserrat", sans-serif;
     color: #3A506B; /* Deep Steel Blue */
     padding: 14px;
     text-transform: uppercase;
+    
 }
 
 /* Alternating Row Colors */
@@ -96,19 +97,20 @@
 
 /* Row Hover Effect */
 .activity-table tr:hover {
-    background-color: #E29578; /* Soft Coral */
-    color: white;
+    background-color: lightgray; /* Soft Coral */
+    color: black;
     transition: background 0.3s ease-in-out;
 }
 
 /* Action-Specific Highlighting */
 .activity-table tr td:nth-child(2) { /* Action Column */
     font-weight: bold;
+    
 }
 
 /* Danger Highlight for Deleted Documents */
 .activity-table tr:nth-child(even) td:nth-child(2) {
-    color: #C1121F; /* Rich Red */
+    color: black; /* Rich Red */
 }
 
 /* Back Button */
@@ -124,14 +126,14 @@
     font-size: 15px;
     border: none;
     border-radius: 8px;
-    background-color: #A4161A; /* Rich Red */
-    color: white;
+    background-color: white; /* Rich Red */
+    color: black;
     font-family: "Poppins Medium", sans-serif;
     cursor: pointer;
     transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 .back-button:hover {
-    background-color: #F77F00; /* Warm Orange */
+    background-color: lightgray; /* Warm Orange */
     transform: scale(1.05);
 }

@@ -25,9 +25,9 @@ const Navbar = () => {
           <span className="text-white d-none d-md-block fw-bold">ADMIN</span>
         </div>
 
-        <div className="flex-grow-1 mx-5">
+        {/* <div className="flex-grow-1 mx-5">
           <Searchbar />
-        </div>
+        </div> */}
 
         <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
           <li className="nav-item">
