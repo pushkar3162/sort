@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./UploadForm.css"; // Import UploadForm CSS
-import { useNavigate } from "react-router-dom";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [permissions, setPermissions] = useState("public");
+  const [message, setMessage] = useState(""); // State to handle success message
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -32,12 +32,17 @@ const UploadForm = () => {
       });
 
       if (response.ok) {
-        alert("File uploaded successfully!");
+        setMessage("File uploaded successfully!"); // Set success message
+        setFile(null);
+        setTitle("");
+        setTags("");
+        setPermissions("public");
       } else {
-        alert("Upload failed. Please try again.");
+        setMessage("Upload failed. Please try again.");
       }
     } catch (error) {
       console.error("Error uploading file:", error);
+      setMessage("Error uploading file. Please try again.");
     }
   };
 
@@ -45,6 +50,7 @@ const UploadForm = () => {
     <div className="upload-form-container">
       <div className="upload-form">
         <h2>Upload Document</h2>
+        {message && <p className="upload-message">{message}</p>} {/* Show message here */}
         <form onSubmit={handleSubmit}>
           <label>Title:</label>
           <input

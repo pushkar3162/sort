@@ -1,5 +1,5 @@
 import React from "react";
-import "./EditorDashboard.css";
+import  "./EditorDashboard.css"; 
 import EditorSidebar from "../components/EditorSidebar";
 import EditorNavbar from "../components/EditorNavbar";
 import { Routes, Route } from "react-router-dom";

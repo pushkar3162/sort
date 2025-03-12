@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Themetoggle from "./Themetoggle";
-import Searchbar from "./Searchbar";
 
-const EditorNavbar = () => {
+
+const ViewerNavbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -12,7 +12,7 @@ const EditorNavbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-#3A506B py-2 px-5">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary py-2 px-5">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
           <img
@@ -22,11 +22,7 @@ const EditorNavbar = () => {
             width="40"
             height="40"
           />
-          <span className="text-white d-none d-md-block fw-bold">EDITOR</span>
-        </div>
-
-        <div className="flex-grow-1 mx-5">
-          <Searchbar />
+          <span className="text-white d-none d-md-block fw-bold">VIEWER</span>
         </div>
 
         <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
@@ -47,7 +43,7 @@ const EditorNavbar = () => {
                   className="bi bi-box-arrow-right"
                   width="20"
                   height="20"
-                  fill="currentColor"
+                  fill="#6667ab"
                   viewBox="0 0 16 16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -70,4 +66,4 @@ const EditorNavbar = () => {
   );
 };
 
-export default EditorNavbar;
+export default ViewerNavbar;

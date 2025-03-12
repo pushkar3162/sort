@@ -19,46 +19,46 @@ const MembersList = () => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        {/* Back button inside the card */}
         <button style={styles.backButton} onClick={() => navigate("/dashboard")}>
-          🔙 Back
+          ⬅ Back
         </button>
-
         <h2 style={styles.heading}>📋 Members List</h2>
         <button style={styles.addButton} onClick={() => navigate("/add-user")}>
           ➕ Add Member
         </button>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>Email</th>
-              <th style={styles.th}>Role</th>
-              <th style={styles.thActions}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.length > 0 ? (
-              members.map((member, index) => (
-                <tr key={index} style={styles.tr}>
-                  <td style={styles.td}>{member.email}</td>
-                  <td style={styles.td}>{member.role}</td>
-                  <td style={styles.tdActions}>
-                    <button
-                      style={styles.deleteButton}
-                      onClick={() => handleDelete(member.email)}
-                    >
-                      ❌ Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
+        <div style={styles.tableWrapper}>
+          <table style={styles.table}>
+            <thead>
               <tr>
-                <td colSpan="3" style={styles.noMembers}>No members added yet.</td>
+                <th style={styles.th}>Email</th>
+                <th style={styles.th}>Role</th>
+                <th style={styles.thActions}>Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {members.length > 0 ? (
+                members.map((member, index) => (
+                  <tr key={index} style={styles.tr}>
+                    <td style={styles.td}>{member.email}</td>
+                    <td style={styles.td}>{member.role}</td>
+                    <td style={styles.tdActions}>
+                      <button
+                        style={styles.deleteButton}
+                        onClick={() => handleDelete(member.email)}
+                      >
+                        ❌ Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" style={styles.noMembers}>No members added yet.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -67,78 +67,73 @@ const MembersList = () => {
 const styles = {
   container: {
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     height: "100vh",
-    padding: "20px",
-   
-    fontFamily: "'Open Sans', 'Lora', sans-serif",
+    backgroundColor: "#F4EBDC", // Base color
+    fontFamily: "'Open Sans', sans-serif",
   },
   card: {
-    backgroundColor: "#D8C3A5", // Warm Sand
-    padding: "30px",
-    borderRadius: "12px",
+    backgroundColor: "#F4EBDC", // Secondary color
+    padding: "40px",
+    borderRadius: "16px",
     textAlign: "center",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-    width: "900px",
-    position: "relative",
-    maxHeight: "80vh",  // Limit max height
-    overflowY: "auto",  // Enable scrolling
+    boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)",
+    width: "80%",
+    maxWidth: "900px",
   },
-
   heading: {
     marginBottom: "20px",
     fontSize: "28px",
-    color: "#3A506B", // Deep Steel Blue
+    color: "#3A506B", // Primary color
     fontWeight: "bold",
-    fontFamily: "'Space Grotesk', 'Montserrat ExtraBold', sans-serif",
   },
   addButton: {
-    backgroundColor: "#3A506B", // Deep Steel Blue
+    backgroundColor: "#3A506B ", // Primary color
     color: "white",
-    padding: "10px 15px",
+    padding: "12px 20px",
     borderRadius: "8px",
     border: "none",
     cursor: "pointer",
-    marginBottom: "15px",
-    fontFamily: "'Lexend', 'Inter', sans-serif",
-    transition: "background 0.3s ease-in-out, transform 0.2s",
+    marginBottom: "20px",
+    fontSize: "16px",
+    transition: "all 0.3s ease-in-out",
   },
   addButtonHover: {
-    backgroundColor: "#264653", // Deep Teal on Hover
-    transform: "scale(1.05)",
+    backgroundColor: "#2C3E50", // Darker shade on hover
+  },
+  tableWrapper: {
+    maxHeight: "400px",
+    overflowY: "auto",
+    borderRadius: "8px",
   },
   table: {
     width: "100%",
     borderCollapse: "collapse",
-    tableLayout: "fixed",
-    marginTop: "10px",
-    backgroundColor: "#FAF0E6", // Light Beige
+    backgroundColor: "#F4EBDC", // Base color
+    borderRadius: "8px",
   },
   th: {
-    backgroundColor: "#D8C3A5", // Warm Sand
-    color: "#3A506B", // Deep Steel Blue
+    backgroundColor: "#B08968 ", // Primary color
+    color: "white",
     padding: "14px",
     textAlign: "center",
     fontWeight: "bold",
-    fontFamily: "'Montserrat', sans-serif",
     textTransform: "uppercase",
   },
   thActions: {
-    backgroundColor: "#D8C3A5",
-    color: "#3A506B",
+    backgroundColor: "#B08968 ",
+    color: "white",
     padding: "14px",
     textAlign: "center",
     fontWeight: "bold",
-    textTransform: "uppercase",
   },
   tr: {
-    borderBottom: "1px solid #A9927D", // Muted Taupe
+    borderBottom: "2px solid #D8C3A5", // Secondary color
   },
   td: {
     padding: "12px",
-    color: "#5A382D", // Dark Brown Text
+    color: "#3A506B", // Primary color
     textAlign: "center",
   },
   tdActions: {
@@ -146,48 +141,33 @@ const styles = {
     padding: "10px",
   },
   noMembers: {
-    padding: "15px",
+    padding: "20px",
     textAlign: "center",
-    color: "#5A382D",
+    color: "#3A506B",
     fontStyle: "italic",
   },
   deleteButton: {
-    backgroundColor: "#C1121F", // Rich Red for Delete
+    backgroundColor: "#A4161A", // Rich Red for Delete
     color: "white",
-    padding: "8px 12px",
+    padding: "10px 16px",
     borderRadius: "8px",
     cursor: "pointer",
     border: "none",
-    fontFamily: "'Poppins Medium', sans-serif",
     transition: "background 0.3s ease-in-out, transform 0.2s",
   },
-  deleteButtonHover: {
-    backgroundColor: "#E35335", // Light Warm Orange
-    transform: "scale(1.08) translateY(-2px)", // Adds a bounce effect
-    transition: "background 0.3s ease, transform 0.2s ease-in-out",
-},
-
   backButton: {
     position: "absolute",
-    top: "10px",
-    left: "10px",
-    padding: "12px 18px",
+    top: "20px",
+    left: "20px",
+    padding: "12px 20px",
     borderRadius: "8px",
-    backgroundColor: "#A4161A", // Rich Red
+    backgroundColor: "#3A506B", // Primary color
     color: "white",
     border: "none",
     cursor: "pointer",
-    fontFamily: "'Poppins Medium', sans-serif",
-    transition: "background 0.3s ease-in-out, transform 0.2s",
-  },
-  backButtonHover: {
-    backgroundColor: "#F77F00", // Warm Orange on Hover
-    transform: "scale(1.05)",
+    fontSize: "16px",
+    transition: "all 0.3s ease-in-out",
   },
 };
-
-
-
-
 
 export default MembersList;

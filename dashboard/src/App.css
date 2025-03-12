@@ -52,8 +52,8 @@
 /* General Styles */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: var(--base-color);
-  color: var(--text-color);
+  background-color: #F4EBDC;
+  color: white;
   margin: 0;
   padding: 0;
 }
@@ -113,6 +113,7 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  background: #F4EBDC;
 }
 
 .invite-btn, .upload-btn {

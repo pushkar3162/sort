@@ -4,7 +4,6 @@
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    background: #3A506B;
 }
 
 /* Sidebar and content wrapper */
@@ -17,7 +16,7 @@
 .editor-sidebar {
     width: 20%;
     min-width: 250px;
-    background-color: #F4EBDC;  /* Light blue shade for differentiation */
+    background-color: #e8f0fe;  /* Light blue shade for differentiation */
     padding: 10px;
 }
 
@@ -25,7 +24,7 @@
 .editor-main-content {
     flex: 3;
     padding: 20px;
-    background-color: #F4EBDC;
+    background-color: #fff;
 }
 
 /* Title styling */
@@ -38,7 +37,7 @@
 /* Navbar Styling */
 .editor-navbar {
     width: 100%;
-    background-color: #000000; /* Dark blue */
+    background-color: #3b5998; /* Dark blue */
     color: white;
     padding: 10px;
     text-align: center;
@@ -47,7 +46,7 @@
 
 /* Button Styling */
 .editor-button {
-    background-color: #8B5E3B;
+    background-color: #3b5998;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -58,7 +57,7 @@
 }
 
 .editor-button:hover {
-    background-color: #2a4373;
+    background-color: #6667ab;
 }
 
 /* Responsive Design */
@@ -71,14 +70,3 @@
         flex-direction: column;
     }
 }
-
-.file-explorer {
-    padding: 10px;
-    background: #F4EBDC;
-    border-radius: 0px;
-    max-width: 1000px;
-    position: relative;
-    margin-top: 50px; /* Adjust this value as needed */
-    left: 300px;
-    right: 20px;
-  }

@@ -41,6 +41,7 @@ const Notifications = () => {
           flex-direction: column;
           height: 100vh;
           font-family: "Roboto", sans-serif; /* Or your project's font */
+          background-color:#F4EBDC;
         }
 
         /* Topbar styling */
@@ -48,7 +49,7 @@ const Notifications = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background-color:rgb(0, 105, 252); /* The red from your snippet */
+          background-color:#3A506B; /* The red from your snippet */
           color: #fff;
           padding: 0.75rem 1rem;
         }
@@ -60,9 +61,10 @@ const Notifications = () => {
 
         .search-area input {
           padding: 0.5rem;
-          border-radius: 4px;
+          border-radius: 2px;
           border: none;
-          width: 200px;
+          width: 250px;
+          box-shadow: #fff;
         }
 
         .actions-area {
@@ -88,7 +90,7 @@ const Notifications = () => {
 
         /* Sidebar styling */
         .sidebar {
-          background-color: #f8f8f8;
+          background-color: #F4EBDC;
           min-width: 200px;
           padding: 1rem;
         }
@@ -118,7 +120,7 @@ const Notifications = () => {
         .notifications-content {
           flex: 1;
           padding: 2rem;
-          background-color: #fff;
+          background-color: #F4EBDC;
         }
 
         .notifications-content h2 {
@@ -133,15 +135,15 @@ const Notifications = () => {
         }
 
         .notification-item {
-          background-color: #f0f0f0;
+          background-color: #D8C3A5;
           padding: 1rem;
-          border-radius: 4px;
+          border-radius: 10px;
         }
 
         .notification-message {
           margin: 0;
           font-size: 1rem;
-          color: #000;
+          color: #000000;
           font-weight: 500;
         }
 
@@ -167,7 +169,7 @@ const Notifications = () => {
         </header>
 
         {/* Sidebar (similar to your dashboard) */}
-        <aside className="sidebar">
+        {/* <aside className="sidebar">
           <ul className="sidebar-menu">
             <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/messages">Messages</a></li>
@@ -176,7 +178,7 @@ const Notifications = () => {
             <li><a href="/settings">Settings</a></li>
             <li><a href="/signout">Sign out</a></li>
           </ul>
-        </aside>
+        </aside> */}
 
         {/* Main content area for Notifications */}
         <main className="notifications-content">
@@ -199,4 +201,3 @@ const Notifications = () => {
 };
 
 export default Notifications;
-
