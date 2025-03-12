@@ -158,7 +158,7 @@ const FileExplorer = () => {
             📂 New
           </button>
           <button style={styles.button} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-            ↕ Sort By {sortBy && `(${sortBy})`}
+            ↕ Sort By {sortBy && (${sortBy})}
           </button>
           <button style={styles.button} onClick={fetchFolders}>
             🔄 Refresh
@@ -177,7 +177,7 @@ const FileExplorer = () => {
 
         <div style={styles.folderContainer}>
           {folders.map((folder, index) => (
-            <Link key={index} to={`/test/${folder.name}`}>
+            <Link key={index} to={/test/${folder.name}}>
               <Folder
                 key={folder.id}
                 folder={folder}
