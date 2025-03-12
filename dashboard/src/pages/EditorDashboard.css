@@ -4,6 +4,7 @@
     justify-content: center;
     flex-direction: column;
     height: 100vh;
+    background: #3A506B;
 }
 
 /* Sidebar and content wrapper */
@@ -16,7 +17,7 @@
 .editor-sidebar {
     width: 20%;
     min-width: 250px;
-    background-color: #e8f0fe;  /* Light blue shade for differentiation */
+    background-color: #F4EBDC;  /* Light blue shade for differentiation */
     padding: 10px;
 }
 
@@ -24,7 +25,7 @@
 .editor-main-content {
     flex: 3;
     padding: 20px;
-    background-color: #fff;
+    background-color: #F4EBDC;
 }
 
 /* Title styling */
@@ -34,22 +35,19 @@
     margin-bottom: 15px;
 }
 
-
 /* Navbar Styling */
 .editor-navbar {
     width: 100%;
-    background-color: #6667ab; /* Updated color */
+    background-color: #000000; /* Dark blue */
     color: white;
     padding: 10px;
     text-align: center;
     font-size: 20px;
 }
 
-
-
 /* Button Styling */
 .editor-button {
-    background-color: #3b5998;
+    background-color: #8B5E3B;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -73,3 +71,18 @@
         flex-direction: column;
     }
 }
+
+.file-explorer {
+    padding: 10px;
+    background: #F4EBDC;
+    border-radius: 0px;
+    max-width: 1000px;
+    position: relative;
+    margin-top: 50px; /* Adjust this value as needed */
+    left: 300px;
+    right: 20px;
+  }
+  
+
+
+

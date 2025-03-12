@@ -30,13 +30,13 @@ const RoleBasedUI = ({ members, setMembers }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (error || email.trim() === "") return;
-  
-    const isDuplicate = members.some(member => member.email === email);
+
+    const isDuplicate = members.some((member) => member.email === email);
     if (isDuplicate) {
       setError("This email is already added.");
       return;
     }
-  
+
     const updatedMembers = [...members, { email, role }];
     setMembers(updatedMembers);
     localStorage.setItem("members", JSON.stringify(updatedMembers));
@@ -92,14 +92,16 @@ const styles = {
     alignItems: "center",
     height: "100vh",
     fontFamily: "'Open Sans', 'Lora', sans-serif",
+    backgroundColor: "#F4EBDC",
   },
 
   card: {
-    backgroundColor: "#D8C3A5", // Warm Sand
-    padding: "30px",
+    backgroundColor: "#F4EBDC", // Warm Sand
+    padding: "25px",
     borderRadius: "12px",
-    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
-    width: "400px",
+    border: "2px solid white", // White border added
+    boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.5)", // White shadow effect
+    width: "450px", // Reduced width for a compact design
     textAlign: "center",
     position: "relative",
     color: "#3A506B", // Deep Steel Blue
@@ -108,11 +110,11 @@ const styles = {
   membersButton: {
     position: "absolute",
     top: "15px",
-    right: "15px",
-    backgroundColor: "#16A085", // Teal Green
-    color: "white",
+    right: "10px",
+    backgroundColor: "#B08968",
+    color: "black",
     border: "none",
-    padding: "8px 14px",
+    padding: "5px 10px",
     borderRadius: "5px",
     cursor: "pointer",
     fontSize: "14px",
@@ -124,82 +126,77 @@ const styles = {
     marginBottom: "20px",
     fontSize: "22px",
     fontWeight: "bold",
-    color: "#3A506B", // Deep Steel Blue
+    color: "#3A506B",
   },
 
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "12px",
+    alignItems: "center", // Center align everything
+    gap: "10px",
+    width: "100%", 
   },
-
+  
   label: {
-    textAlign: "left",
+    alignSelf: "flex-start", // Align text labels to the left
     fontSize: "14px",
     fontWeight: "bold",
-    color: "#3A506B", // Deep Steel Blue
+    color: "#3A506B",
+    marginLeft: "10%", // Align labels with input width
   },
-
+  
   input: {
     padding: "10px",
     borderRadius: "6px",
-    border: "1px solid #A9927D", // Muted Taupe
+    border: "1px solid #A9927D",
     outline: "none",
-    backgroundColor: "#FAF0E6", // Light Beige
+    backgroundColor: "#FAF0E6",
+    width: "80%", // Smaller width
+    display: "block",
   },
-
+  
   select: {
     padding: "10px",
     borderRadius: "6px",
-    border: "1px solid #A9927D", // Muted Taupe
+    border: "1px solid #A9927D",
     outline: "none",
-    backgroundColor: "#FAF0E6", // Light Beige
+    backgroundColor: "#FAF0E6",
+    width: "80%", // Smaller width
+    display: "block",
   },
-
-  error: {
-    color: "#C1121F", // Rich Red
-    fontSize: "14px",
-    fontWeight: "bold",
-    textAlign: "left",
-  },
-
-  success: {
-    color: "#3A506B", // Deep Steel Blue
-    fontSize: "14px",
-    fontWeight: "bold",
-    textAlign: "left",
-  },
-
+  
   buttonContainer: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "15px",
+    width: "80%", // Match input width
+    marginTop: "10px",
   },
-
+  
   cancelButton: {
-    backgroundColor: "#95A5A6", // Soft Gray
+    backgroundColor: "#3A506B",
     color: "white",
     border: "none",
-    padding: "10px 15px",
+    padding: "8px 15px",
     borderRadius: "6px",
     cursor: "pointer",
-    fontSize: "16px",
+    fontSize: "14px",
     fontWeight: "bold",
     transition: "background 0.3s ease",
+    width: "30%", // Adjusted for equal spacing
   },
-
+  
   submitButton: {
-    backgroundColor: "#3A506B", // Deep Steel Blue
+    backgroundColor: "#3A506B",
     color: "white",
     border: "none",
-    padding: "10px 15px",
+    padding: "8px 15px",
     borderRadius: "6px",
     cursor: "pointer",
-    fontSize: "16px",
+    fontSize: "14px",
     fontWeight: "bold",
     transition: "background 0.3s ease",
+    width: "30%", // Adjusted for equal spacing
   },
-};
-
+};  
 
 export default RoleBasedUI;

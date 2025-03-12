@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Themetoggle from "./Themetoggle";
-import Searchbar from "./Searchbar";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,43 +11,90 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-danger py-2 px-5">
+    <nav className="navbar navbar-expand-lg navbar-dark py-2 px-5" style={{ backgroundColor: "#3A506B" }}>
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
-          <img
-            className="rounded-circle me-2"
-            src="https://t3.ftcdn.net/jpg/00/65/75/68/360_F_65756860_GUZwzOKNMUU3HldFoIA44qss7ZIrCG8I.jpg"
-            alt="Admin Avatar"
-            width="40"
-            height="40"
-          />
           <span className="text-white d-none d-md-block fw-bold">ADMIN</span>
         </div>
 
-        <div className="flex-grow-1 mx-5">
-          <Searchbar />
-        </div>
-
         <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
+          {/* Invite Members Button with Enhanced Hover Effect */}
           <li className="nav-item">
-            <button 
-              className="btn btn-light fw-bold"
+            <button
+              className="btn fw-bold"
               onClick={() => navigate("/add-user")}
+              style={{
+                backgroundColor: "white",
+                color: "black",
+                border: "2px solid white",
+                borderRadius: "6px",
+                transition: "all 0.2s ease-in-out",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "#e0e0e0"; // Darker shade on hover
+                e.target.style.border = "2px solid #ccc"; // Slightly darker border
+                e.target.style.transform = "scale(1.05)"; // Slightly enlarges
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "white"; // Revert to white
+                e.target.style.border = "2px solid white"; // Revert border
+                e.target.style.transform = "scale(1)"; // Back to normal size
+              }}
             >
-              + Invite Members
+              Invite Members
             </button>
           </li>
+
+          {/* Theme Toggle Button with Enhanced Hover Effect */}
           <li className="nav-item">
-            <Themetoggle />
+            <div
+              style={{
+                border: "2px solid white",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "40px",
+                height: "40px",
+                transition: "all 0.2s ease-in-out",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "rgba(255, 255, 255, 0.77)"; // Light transparent effect
+               
+                e.target.style.transform = "scale(1.1)"; // Slightly enlarges
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "transparent"; // Revert to transparent
+                e.target.style.border = "2px solid white"; // Revert border
+                e.target.style.transform = "scale(1)"; // Back to normal size
+              }}
+            >
+              <Themetoggle />
+            </div>
           </li>
+
           <li className="nav-item">
             <div className="vr bg-light"></div>
           </li>
+
+          {/* Logout Button */}
           <li className="nav-item">
             <button
               onClick={handleLogout}
               className="nav-link d-flex align-items-center text-white bg-transparent border-0"
-              style={{ cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+                padding: "6px 12px",
+                transition: "all 0.3s ease-in-out",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "white";
+                e.target.style.color = "black";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.color = "white";
+              }}
             >
               <span className="me-1">
                 <svg

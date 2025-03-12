@@ -72,7 +72,7 @@ const EditorFileExplorer = () => {
             <FaSyncAlt /> Refresh
           </button>
           {/* Upload Button */}
-          <EditorUploadButton onUploadSuccess={fetchFolders} />
+          <EditorUploadButton onUploadSuccess={fetchFolders} buttonStyle={styles.button} />
         </div>
 
         {/* Sorting Dropdown */}
@@ -117,87 +117,80 @@ const EditorFileExplorer = () => {
 };
 
 // Inline Styles
-
-  const styles = {
-    fileExplorer: {
-      padding: "20px",
-      backgroundColor: "#fff",
-      borderRadius: "8px",
-      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-      width: "calc(100% - 250px)", 
-      maxWidth: "1200px",
-      margin: "0 auto",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      marginLeft: "250px",
-    },
-    title: {
-      fontSize: "24px",
-      fontWeight: "bold",
-      display: "flex",
-      alignItems: "center",
-      gap: "10px",
-      marginBottom: "15px",
-    },
-    toolbar: {
-      display: "flex",
-      alignItems: "center",
-      gap: "10px",
-      marginBottom: "15px",
-      width: "100%",
-    },
-    searchInput: {
-      flex: "1", // ✅ Makes it take available space
-      padding: "10px",
-      borderRadius: "6px",
-      border: "1px solid #ccc",
-      outline: "none",
-      fontSize: "14px",
-      minWidth: "200px",
-    },
-    buttonContainer: {
-      display: "flex",
-      gap: "10px",
-    },
-    button: {
-      padding: "8px 14px",
-      border: "none",
-      borderRadius: "6px",
-      backgroundColor: "#007bff",
-      color: "#fff",
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      gap: "6px",
-      minWidth: "100px", // ✅ Keeps button width consistent
-      justifyContent: "center",
-    },
-    dropdown: {
-      position: "absolute",
-      backgroundColor: "#fff",
-      borderRadius: "6px",
-      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-      padding: "10px",
-      width: "150px",
-      zIndex: 1000,
-    },
-    folderWrapper: {
-      display: "flex",
-      justifyContent: "center",
-      width: "100%",
-    },
-    folderContainer: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", // ✅ Keeps spacing uniform
-      gap: "15px",
-      maxWidth: "900px",
-      width: "100%",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  
-  
+const styles = {
+  fileExplorer: {
+    padding: "20px",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    width: "calc(100% - 250px)",
+    maxWidth: "1200px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginLeft: "250px",
+  },
+  title: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    marginBottom: "15px",
+  },
+  toolbar: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    marginBottom: "15px",
+    width: "100%",
+  },
+  searchInput: {
+    flex: "1",
+    padding: "10px",
+    borderRadius: "6px",
+    border: "1px solid #ccc",
+    outline: "none",
+    fontSize: "14px",
+    minWidth: "200px",
+  },
+  button: {
+    padding: "8px 14px",
+    border: "none",
+    borderRadius: "6px",
+    backgroundColor: "#3A506B", // Updated color
+    color: "#fff",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    minWidth: "100px",
+    justifyContent: "center",
+  },
+  dropdown: {
+    position: "absolute",
+    backgroundColor: "#fff",
+    borderRadius: "6px",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    padding: "10px",
+    width: "150px",
+    zIndex: 1000,
+  },
+  folderWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+  },
+  folderContainer: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+    gap: "15px",
+    maxWidth: "900px",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 export default EditorFileExplorer;

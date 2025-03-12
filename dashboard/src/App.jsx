@@ -15,8 +15,7 @@ import UploadForm from "./components/UploadForm";
 import Notifications from "./components/Notification";
 import DocumentLogs from "./components/DocumentLogs/DocumentLogs";
 import Doc from "./components/Doc";
-import Version from "./components/version";
-import ViewerDashboard from "./pages/ViewerDashboard" // ✅ Import Version
+import Version from "./components/version"; // ✅ Import Version
 
 const App = () => {
   const [members, setMembers] = useState([]); // Centralized members state
@@ -27,7 +26,6 @@ const App = () => {
         <Route path="/" element={<AuthForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/editordashboard/*" element={<EditorDashboard />} />
-        <Route path="/viewerdashboard/*" element={<ViewerDashboard />} />
         <Route path="/upload" element={<UploadForm />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/test/:folderName" element={<Test />} />

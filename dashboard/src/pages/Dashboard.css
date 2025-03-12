@@ -1,9 +1,10 @@
-/* Full screen layout */
+Full screen layout
 .dashboard-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
+    background-color: #f4ebdc;
 }
   /* Sidebar and content wrapper */
 .dashboard-content {
@@ -21,7 +22,7 @@
 .main-content {
     flex: 3;
     padding: 20px;
-    background-color: #fff;
+    background-color: #F4EBDC;
    }
   /* Title styling */
 .title {
@@ -30,3 +31,10 @@
     margin-bottom: 15px;
    
 }
+
+
+
+
+
+
+

@@ -12,7 +12,6 @@ import {
 import { io } from "socket.io-client";
 
 // Connect to WebSocket server
-
 const socket = io("http://localhost:5000");
 
 const Document = () => {
@@ -21,160 +20,92 @@ const Document = () => {
   const [connectionStatus, setConnectionStatus] = useState("connecting");
 
   useEffect(() => {
-    // Set up connection status
-    const handleConnect = () => {
-      setConnectionStatus("connected");
-      console.log("Connected to server");
-    };
-
-    const handleDisconnect = () => {
-      setConnectionStatus("disconnected");
-      console.log("Disconnected from server");
-    };
-
-    const handleError = (error) => {
-      setConnectionStatus("error");
-      console.log("Connection error:", error);
-    };
-
-    // Handle initial data load from server
+    const handleConnect = () => setConnectionStatus("connected");
+    const handleDisconnect = () => setConnectionStatus("disconnected");
+    const handleError = () => setConnectionStatus("error");
     const handleInitialData = (data) => {
-      console.log("Received initial data:", data);
-      if (data.files && Array.isArray(data.files)) {
-        setFiles(data.files);
-      }
-      if (data.comments && typeof data.comments === "object") {
-        setComments(data.comments);
-      }
+      if (data.files) setFiles(data.files);
+      if (data.comments) setComments(data.comments);
     };
 
-    // Handle file updates
-    const handleFileUploaded = (updatedFiles) => {
-      console.log("Files updated:", updatedFiles);
-      setFiles(updatedFiles);
-    };
-
-    // Handle comment updates
-    const handleCommentUpdated = ({ index, value }) => {
-      console.log(`Comment updated for index ${index}:`, value);
-      setComments((prev) => ({ ...prev, [index]: value }));
-    };
-
-    // Handle full comments update
-    const handleCommentsFullUpdate = (updatedComments) => {
-      console.log("Full comments update:", updatedComments);
-      setComments(updatedComments);
-    };
-
-    // Handle file removals
-    const handleFileRemoved = (updatedFiles) => {
-      console.log("Files after removal:", updatedFiles);
-      setFiles(updatedFiles);
-    };
-
-    // Set up event listeners
     socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
     socket.on("connect_error", handleError);
     socket.on("initialData", handleInitialData);
-    socket.on("fileUploaded", handleFileUploaded);
-    socket.on("commentUpdated", handleCommentUpdated);
-    socket.on("commentsFullUpdate", handleCommentsFullUpdate);
-    socket.on("fileRemoved", handleFileRemoved);
+    socket.on("fileUploaded", setFiles);
+    socket.on("commentUpdated", ({ index, value }) =>
+      setComments((prev) => ({ ...prev, [index]: value }))
+    );
+    socket.on("commentsFullUpdate", setComments);
+    socket.on("fileRemoved", setFiles);
 
-    // Clean up event listeners when component unmounts
     return () => {
       socket.off("connect", handleConnect);
       socket.off("disconnect", handleDisconnect);
       socket.off("connect_error", handleError);
       socket.off("initialData", handleInitialData);
-      socket.off("fileUploaded", handleFileUploaded);
-      socket.off("commentUpdated", handleCommentUpdated);
-      socket.off("commentsFullUpdate", handleCommentsFullUpdate);
-      socket.off("fileRemoved", handleFileRemoved);
+      socket.off("fileUploaded", setFiles);
+      socket.off("commentUpdated");
+      socket.off("commentsFullUpdate");
+      socket.off("fileRemoved");
     };
-  }, []); // Empty dependency array means this effect runs once on mount
-
-  const handleFileChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    if (newFiles.length > 0) {
-      // Create file objects with only the necessary properties
-      // This is important because File objects aren't serializable for socket.io
-      const serializableFiles = [...files, ...newFiles].map((file, index) => ({
-        name: file.name,
-        size: file.size || 0,
-        type: file.type || "",
-        lastModified: file.lastModified || Date.now(),
-        id: file.id || `file-${Date.now()}-${index}`, // Ensure each file has a unique ID
-      }));
-
-      setFiles(serializableFiles);
-      socket.emit("fileUploaded", serializableFiles);
-    }
-  };
-
-  const handleCommentChange = (index, value) => {
-    setComments({ ...comments, [index]: value });
-    socket.emit("commentUpdated", { index, value });
-  };
-
-  const handleRemove = (index) => {
-    const updatedFiles = files.filter((_, i) => i !== index);
-    setFiles(updatedFiles);
-    socket.emit("fileRemoved", updatedFiles);
-  };
+  }, []);
 
   return (
     <Container
       fluid
-      className="vh-100 d-flex flex-column justify-content-center align-items-center bg-light"
+      className="vh-100 d-flex flex-column justify-content-center align-items-center"
+      style={{ backgroundColor: "#F4EBDC" }} // Set background color
     >
-      <Card className="w-75 p-4 shadow-lg">
-        <Card.Title className="text-center mb-3 text-primary">
-          Document Management System
-        </Card.Title>
+      <Card
+        className="w-75 p-4 shadow-lg"
+        style={{
+          backgroundColor: "#F4EBDC",
+          color: "#3A506B", // Set text color
+          border: "2px solid white", // White border
+          boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.5)", // White shadow effect
+        }}
+      >
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <Card.Title style={{ color: "#3A506B" }}>
+            Document Management System
+          </Card.Title>
+        </div>
 
-        {/* Connection status indicator */}
         <div className="text-center mb-3">
           <Badge
-            bg={
-              connectionStatus === "connected"
-                ? "success"
-                : connectionStatus === "disconnected"
-                ? "danger"
-                : connectionStatus === "error"
-                ? "warning"
-                : "secondary"
-            }
+            style={{ backgroundColor: "#3A506B", color: "#F4EBDC" }} // Status badge styling
           >
-            {connectionStatus === "connected"
-              ? "Connected"
-              : connectionStatus === "disconnected"
-              ? "Disconnected"
-              : connectionStatus === "error"
-              ? "Connection Error"
-              : "Connecting..."}
+            {connectionStatus.charAt(0).toUpperCase() + connectionStatus.slice(1)}
           </Badge>
         </div>
 
         <Row className="mb-3">
           <Col>
             <Form.Group>
-              <Form.Label className="fw-bold">Upload Documents</Form.Label>
+              <Form.Label className="fw-bold" style={{ color: "#3A506B" }}>
+                Upload Documents
+              </Form.Label>
               <Form.Control
                 type="file"
                 multiple
-                onChange={handleFileChange}
-                className="border shadow-sm"
+                onChange={(e) => {
+                  const newFiles = Array.from(e.target.files).map((file, index) => ({
+                    name: file.name,
+                    size: file.size || 0,
+                    type: file.type || "",
+                    lastModified: file.lastModified || Date.now(),
+                    id: `file-${Date.now()}-${index}`,
+                  }));
+                  setFiles((prev) => [...prev, ...newFiles]);
+                  socket.emit("fileUploaded", [...files, ...newFiles]);
+                }}
               />
-              <Form.Text className="text-muted">
-                Select one or more files to upload and share with others
-              </Form.Text>
             </Form.Group>
           </Col>
         </Row>
 
-        <Card.Subtitle className="mb-2 mt-3">
+        <Card.Subtitle className="mb-2 mt-3" style={{ color: "#3A506B" }}>
           Document List ({files.length} documents)
         </Card.Subtitle>
 
@@ -183,10 +114,17 @@ const Document = () => {
             files.map((file, index) => (
               <ListGroup.Item
                 key={file.id || index}
-                className="d-flex justify-content-between align-items-start bg-white shadow-sm rounded p-3 mb-2"
+                style={{
+                  backgroundColor: "rgba(0, 123, 255, 0.1)",
+                  borderLeft: "5px solid #007bff",
+                  borderRadius: "8px",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  color: "#3A506B", // Ensures text color applies correctly
+                }}
               >
                 <div className="ms-2 me-auto w-100">
-                  <div className="fw-bold text-dark d-flex justify-content-between">
+                  <div className="fw-bold d-flex justify-content-between">
                     <span>{file.name}</span>
                     <span className="text-muted small">
                       {(file.size / 1024).toFixed(1)} KB
@@ -196,14 +134,24 @@ const Document = () => {
                     type="text"
                     placeholder="Add a comment"
                     value={comments[index] || ""}
-                    onChange={(e) => handleCommentChange(index, e.target.value)}
-                    className="mt-2 border shadow-sm"
+                    onChange={(e) => {
+                      setComments({ ...comments, [index]: e.target.value });
+                      socket.emit("commentUpdated", { index, value: e.target.value });
+                    }}
+                    className="mt-2"
+                    style={{ color: "#3A506B", borderColor: "#3A506B" }} // Styling for input
                   />
                   <Button
                     variant="danger"
                     size="sm"
-                    className="shadow-sm mt-2"
-                    onClick={() => handleRemove(index)}
+                    className="mt-2"
+                    onClick={() => {
+                      setFiles((prev) => prev.filter((_, i) => i !== index));
+                      socket.emit(
+                        "fileRemoved",
+                        files.filter((_, i) => i !== index)
+                      );
+                    }}
                   >
                     Remove
                   </Button>
@@ -211,8 +159,8 @@ const Document = () => {
               </ListGroup.Item>
             ))
           ) : (
-            <p className="text-center mt-3 text-muted">
-              No documents uploaded. Add documents to get started.
+            <p className="text-center mt-3" style={{ color: "#3A506B" }}>
+              No documents uploaded.
             </p>
           )}
         </ListGroup>
