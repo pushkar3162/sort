@@ -25,6 +25,7 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     }
   };
 
+<<<<<<< HEAD
   const handleSaveMetadata = (updatedMetadata) => {
     console.log("Saving metadata for folder:", folder.id, updatedMetadata);
     
@@ -41,6 +42,24 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     // For now, we'll just display an alert
     alert("Metadata saved successfully!");
   };
+=======
+    // Dummy metadata for folders and files
+    const dummyMetadata = {
+        folder: {
+            folderName: folder.name,
+            creationDate: "2023-10-01",
+            lastModified: "2023-10-05",
+            description:"none",
+        },
+        file: {
+            fileName: "example.txt",
+            creationDate: "2023-10-02",
+            lastModified: "2023-10-04",
+            description:"none",
+
+        },
+    };
+>>>>>>> 38a585181ad3b3c7f143a1990db18a3ed4097651
 
   const handleDelete = (folderId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this folder?");
