@@ -67,7 +67,7 @@ const ViewerFileExplorer = () => {
             style={styles.button}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            <FaSort /> Sort By {sortBy && `(${sortBy})`}
+            <FaSort /> Sort By {sortBy && (${sortBy})}
           </button>
           <button style={styles.button} onClick={fetchFolders}>
             <FaSyncAlt /> Refresh
@@ -99,7 +99,7 @@ const ViewerFileExplorer = () => {
             {filteredFolders.map((folder, index) => (
               <Link
                 key={index}
-                to={`/test/${folder.name}`}
+                to={/test/${folder.name}}
                 style={styles.folderLink}
               >
                 <Folder
