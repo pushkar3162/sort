@@ -46,7 +46,15 @@ function AuthForm() {
       alignItems="center"
       style={{ minHeight: "100vh", backgroundColor: "#F4EBDC" }}
     >
-      <Paper elevation={6} sx={{ padding: 4, width: 400, borderRadius: 3,  backgroundColor: "#F4EBDC"}}>
+      <Paper
+        elevation={6}
+        sx={{
+          padding: 4,
+          width: 400,
+          borderRadius: 3,
+          backgroundColor: "#F4EBDC",
+        }}
+      >
         <Card>
           <CardHeader
             title={
@@ -57,9 +65,8 @@ function AuthForm() {
           />
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
-              
               <Box display="flex" flexDirection="column" gap={2}>
-                {!isLogin && ( 
+                {!isLogin && (
                   <TextField
                     label="Username"
                     {...register("username")}
@@ -92,7 +99,7 @@ function AuthForm() {
                   variant="contained"
                   fullWidth
                   size="large"
-                   style={{ backgroundColor: "#3A506B", color: "#000000" }}
+                  style={{ backgroundColor: "#3A506B", color: "#000000" }}
                 >
                   {isLogin ? "Login" : "Sign Up"}
                 </Button>
@@ -103,7 +110,6 @@ function AuthForm() {
               {isLogin ? "Don't have an account?" : "Already have an account?"}
               <Button color="primary" onClick={() => setIsLogin(!isLogin)}>
                 {isLogin ? "Sign Up" : "Login"}
-                
               </Button>
             </Typography>
           </CardContent>

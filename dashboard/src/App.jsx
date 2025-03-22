@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./index.css"; 
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import Test from "./components/Test";
+import React, { useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ActivityLogs from "./components/ActivityLogs/ActivityLogs"; // ✅ Import ActivityLogs
+import FolderDetails from "./components/AdminDashboard/FolderDetails";
 import AuthForm from "./components/AuthForm";
+import Doc from "./components/Doc";
+import DocumentLogs from "./components/DocumentLogs/DocumentLogs";
+import EditorFolderDetails from "./components/EditorDashboard/EditorFolderDetails";
+import MembersList from "./components/MembersList";
+import Notifications from "./components/Notification";
+import RoleBasedUI from "./components/RoleBasedUI";
+import UploadForm from "./components/UploadForm";
+import Version from "./components/version"; // ✅ Import Version
+import ViewerFolderDetails from "./components/ViewerDashboard/ViewerFolderDetails"; // ✅ Import ViewerFolderDetails
+import "./index.css";
 import Dashboard from "./pages/Dashboard";
 import EditorDashboard from "./pages/EditorDashboard";
-import ActivityLogs from "./components/ActivityLogs/ActivityLogs"; // ✅ Import ActivityLogs
-import RoleBasedUI from "./components/RoleBasedUI";
-import MembersList from "./components/MembersList";
-import UploadForm from "./components/UploadForm";
-import Notifications from "./components/Notification";
-import DocumentLogs from "./components/DocumentLogs/DocumentLogs";
-import Doc from "./components/Doc";
-import Version from "./components/version"; // ✅ Import Version
+import Viewerdashboard from "./pages/ViewerDashboard";
 
 const App = () => {
   const [members, setMembers] = useState([]); // Centralized members state
@@ -26,15 +29,24 @@ const App = () => {
         <Route path="/" element={<AuthForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/editordashboard/*" element={<EditorDashboard />} />
+        <Route path="/viewerdashboard/*" element={<Viewerdashboard />} />
         <Route path="/upload" element={<UploadForm />} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/test/:folderName" element={<Test />} />
-        
+        <Route path="/dashboard/:folderName" element={<FolderDetails />} />
+        <Route
+          path="/editordashboard/:folderName"
+          element={<EditorFolderDetails />}
+        />
+        <Route
+          path="/viewerdashboard/:folderName"
+          element={<ViewerFolderDetails />}
+        />
+
         <Route path="/activity-logs" element={<ActivityLogs />} />
         <Route path="/document-logs" element={<DocumentLogs />} />
         <Route path="/doc" element={<Doc />} />
         <Route path="/version" element={<Version />} />
-       
+
         <Route
           path="/add-user"
           element={<RoleBasedUI members={members} setMembers={setMembers} />}
@@ -46,7 +58,6 @@ const App = () => {
       </Routes>
     </Router>
   );
-  
 };
 
 export default App;

@@ -1,15 +1,19 @@
 import React from "react";
 import "./ViewerDashboard.css";
-import ViewerSidebar from "../components/ViewerSidebar";
-import ViewerNavbar from "../components/ViewerNavbar";
+import ViewerSidebar from "../components/ViewerDashboard/ViewerSidebar";
+import ViewerNavbar from "../components/ViewerDashboard/ViewerNavbar";
 import { Routes, Route } from "react-router-dom";
-import ViewerFileExplorer from "../components/ViewerFile";
+import ViewerFileExplorer from "../components/ViewerDashboard/ViewerFileExplorer";
 
 export const ViewerDashboard = () => {
   return (
-    <div className="editor-dashboard-container">  {/* Apply container class */}
+    <div className="editor-dashboard-container">
+      {" "}
+      {/* Apply container class */}
       <ViewerNavbar />
-      <div className="editor-dashboard-content">  {/* Apply dashboard content class */}
+      <div className="editor-dashboard-content">
+        {" "}
+        {/* Apply dashboard content class */}
         <ViewerSidebar className="editor-sidebar" />
         <main className="editor-main-content">
           <ViewerFileExplorer />

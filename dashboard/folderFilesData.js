@@ -1,5 +1,5 @@
 const filesFoldersData = [
-    {
+  {
       id: 1,
       name: "Documents",
       type: "folder",

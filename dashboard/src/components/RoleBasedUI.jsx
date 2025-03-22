@@ -48,7 +48,10 @@ const RoleBasedUI = ({ members, setMembers }) => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <button onClick={() => navigate("/members-list")} style={styles.membersButton}>
+        <button
+          onClick={() => navigate("/members-list")}
+          style={styles.membersButton}
+        >
           📋 Members
         </button>
 
@@ -66,16 +69,28 @@ const RoleBasedUI = ({ members, setMembers }) => {
           {success && <p style={styles.success}>{success}</p>}
 
           <label style={styles.label}>Role:</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)} style={styles.select}>
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            style={styles.select}
+          >
             <option value="Viewer">Viewer</option>
             <option value="Editor">Editor</option>
           </select>
 
           <div style={styles.buttonContainer}>
-            <button type="button" onClick={() => navigate("/dashboard")} style={styles.cancelButton}>
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              style={styles.cancelButton}
+            >
               Cancel
             </button>
-            <button type="submit" style={styles.submitButton} disabled={!!error}>
+            <button
+              type="submit"
+              style={styles.submitButton}
+              disabled={!!error}
+            >
               Submit
             </button>
           </div>
@@ -134,9 +149,9 @@ const styles = {
     flexDirection: "column",
     alignItems: "center", // Center align everything
     gap: "10px",
-    width: "100%", 
+    width: "100%",
   },
-  
+
   label: {
     alignSelf: "flex-start", // Align text labels to the left
     fontSize: "14px",
@@ -144,7 +159,7 @@ const styles = {
     color: "#3A506B",
     marginLeft: "10%", // Align labels with input width
   },
-  
+
   input: {
     padding: "10px",
     borderRadius: "6px",
@@ -154,7 +169,7 @@ const styles = {
     width: "80%", // Smaller width
     display: "block",
   },
-  
+
   select: {
     padding: "10px",
     borderRadius: "6px",
@@ -164,14 +179,14 @@ const styles = {
     width: "80%", // Smaller width
     display: "block",
   },
-  
+
   buttonContainer: {
     display: "flex",
     justifyContent: "space-between",
     width: "80%", // Match input width
     marginTop: "10px",
   },
-  
+
   cancelButton: {
     backgroundColor: "#3A506B",
     color: "white",
@@ -184,7 +199,7 @@ const styles = {
     transition: "background 0.3s ease",
     width: "30%", // Adjusted for equal spacing
   },
-  
+
   submitButton: {
     backgroundColor: "#3A506B",
     color: "white",
@@ -197,6 +212,6 @@ const styles = {
     transition: "background 0.3s ease",
     width: "30%", // Adjusted for equal spacing
   },
-};  
+};
 
 export default RoleBasedUI;

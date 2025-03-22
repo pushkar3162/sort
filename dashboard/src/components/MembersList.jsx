@@ -19,7 +19,10 @@ const MembersList = () => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <button style={styles.backButton} onClick={() => navigate("/dashboard")}>
+        <button
+          style={styles.backButton}
+          onClick={() => navigate("/dashboard")}
+        >
           ⬅ Back
         </button>
         <h2 style={styles.heading}>📋 Members List</h2>
@@ -53,7 +56,9 @@ const MembersList = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" style={styles.noMembers}>No members added yet.</td>
+                  <td colSpan="3" style={styles.noMembers}>
+                    No members added yet.
+                  </td>
                 </tr>
               )}
             </tbody>

@@ -1,33 +1,33 @@
 // MetadataModal.js - Separate component for the modal
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 
 const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
   const [editableMetadata, setEditableMetadata] = React.useState({
     name: metadata?.name || "",
-    createdAt: metadata?.createdAt || new Date().toISOString().split('T')[0],
-    modifiedAt: metadata?.modifiedAt || new Date().toISOString().split('T')[0],
+    createdAt: metadata?.createdAt || new Date().toISOString().split("T")[0],
+    modifiedAt: metadata?.modifiedAt || new Date().toISOString().split("T")[0],
     owner: metadata?.owner || "Current User",
     tags: metadata?.tags || "",
     description: metadata?.description || "",
-    permissions: metadata?.permissions || "Private"
+    permissions: metadata?.permissions || "Private",
   });
 
   useEffect(() => {
     // Disable scrolling on body when modal is open
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
-    
+
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, [isOpen]);
 
   const handleMetadataChange = (key, value) => {
-    setEditableMetadata(prev => ({
+    setEditableMetadata((prev) => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }));
   };
 
@@ -49,50 +49,56 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
             <tr>
               <td>Name</td>
               <td>
-                <input 
-                  type="text" 
-                  value={editableMetadata.name} 
-                  onChange={(e) => handleMetadataChange('name', e.target.value)}
+                <input
+                  type="text"
+                  value={editableMetadata.name}
+                  onChange={(e) => handleMetadataChange("name", e.target.value)}
                 />
               </td>
             </tr>
             <tr>
               <td>Created</td>
               <td>
-                <input 
-                  type="date" 
-                  value={editableMetadata.createdAt} 
-                  onChange={(e) => handleMetadataChange('createdAt', e.target.value)}
+                <input
+                  type="date"
+                  value={editableMetadata.createdAt}
+                  onChange={(e) =>
+                    handleMetadataChange("createdAt", e.target.value)
+                  }
                 />
               </td>
             </tr>
             <tr>
               <td>Modified</td>
               <td>
-                <input 
-                  type="date" 
-                  value={editableMetadata.modifiedAt} 
-                  onChange={(e) => handleMetadataChange('modifiedAt', e.target.value)}
+                <input
+                  type="date"
+                  value={editableMetadata.modifiedAt}
+                  onChange={(e) =>
+                    handleMetadataChange("modifiedAt", e.target.value)
+                  }
                 />
               </td>
             </tr>
             <tr>
               <td>Owner</td>
               <td>
-                <input 
-                  type="text" 
-                  value={editableMetadata.owner} 
-                  onChange={(e) => handleMetadataChange('owner', e.target.value)}
+                <input
+                  type="text"
+                  value={editableMetadata.owner}
+                  onChange={(e) =>
+                    handleMetadataChange("owner", e.target.value)
+                  }
                 />
               </td>
             </tr>
             <tr>
               <td>Tags</td>
               <td>
-                <input 
-                  type="text" 
-                  value={editableMetadata.tags} 
-                  onChange={(e) => handleMetadataChange('tags', e.target.value)}
+                <input
+                  type="text"
+                  value={editableMetadata.tags}
+                  onChange={(e) => handleMetadataChange("tags", e.target.value)}
                   placeholder="Separate with commas"
                 />
               </td>
@@ -100,9 +106,11 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
             <tr>
               <td>Permissions</td>
               <td>
-                <select 
-                  value={editableMetadata.permissions} 
-                  onChange={(e) => handleMetadataChange('permissions', e.target.value)}
+                <select
+                  value={editableMetadata.permissions}
+                  onChange={(e) =>
+                    handleMetadataChange("permissions", e.target.value)
+                  }
                 >
                   <option value="Private">Private</option>
                   <option value="Public">Public</option>
@@ -113,9 +121,11 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
             <tr>
               <td>Description</td>
               <td>
-                <textarea 
-                  value={editableMetadata.description} 
-                  onChange={(e) => handleMetadataChange('description', e.target.value)}
+                <textarea
+                  value={editableMetadata.description}
+                  onChange={(e) =>
+                    handleMetadataChange("description", e.target.value)
+                  }
                   rows="3"
                 />
               </td>
@@ -123,8 +133,12 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
           </tbody>
         </table>
         <div className="modal-buttons">
-          <button onClick={handleSave} className="save-button">Save</button>
-          <button onClick={onClose} className="cancel-button">Cancel</button>
+          <button onClick={handleSave} className="save-button">
+            Save
+          </button>
+          <button onClick={onClose} className="cancel-button">
+            Cancel
+          </button>
         </div>
       </div>
       <style jsx>{`
@@ -168,7 +182,9 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
           width: 120px;
           font-weight: 500;
         }
-        .metadata-table input, .metadata-table select, .metadata-table textarea {
+        .metadata-table input,
+        .metadata-table select,
+        .metadata-table textarea {
           width: 100%;
           padding: 8px;
           border: 1px solid #ddd;
@@ -212,5 +228,4 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
   );
 };
 
-
-export default MetadataModal
+export default MetadataModal;

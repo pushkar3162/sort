@@ -1,33 +1,33 @@
-import React, { useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Notifications = () => {
   // Dummy notifications data
   const notifications = [
     {
       id: 1,
-      message: 'User John updated Document #123',
-      time: '2023-01-21 10:15 AM'
+      message: "User John updated Document #123",
+      time: "2023-01-21 10:15 AM",
     },
     {
       id: 2,
-      message: 'User Emily created a new Document #124',
-      time: '2023-01-21 10:30 AM'
+      message: "User Emily created a new Document #124",
+      time: "2023-01-21 10:30 AM",
     },
     {
       id: 3,
-      message: 'User Mark deleted Document #122',
-      time: '2023-01-21 11:00 AM'
-    }
+      message: "User Mark deleted Document #122",
+      time: "2023-01-21 11:00 AM",
+    },
   ];
 
   // Example effect to show how you might trigger a Toastify notification
   useEffect(() => {
     // This can be triggered when new changes occur
-    toast.info('Welcome to the Notifications page!', {
-      position: 'top-right',
-      autoClose: 3000
+    toast.info("Welcome to the Notifications page!", {
+      position: "top-right",
+      autoClose: 3000,
     });
   }, []);
 

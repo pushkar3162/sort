@@ -1,11 +1,17 @@
 // Ellipsis.js - Updated to use the separate modal component
-import { useState, useRef, useEffect } from "react";
-import MetadataModal from './MetadataModal';
+import { useEffect, useRef, useState } from "react";
+import MetadataModal from "./MetadataModal";
 
-const Ellipsis = ({ folderId, metadata, onSaveMetadata, onDelete, onRename }) => {
+const Ellipsis = ({
+  folderId,
+  fileid,
+  metadata,
+  onSaveMetadata,
+  onDelete,
+  onRename,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMetadataModalOpen, setIsMetadataModalOpen] = useState(false);
-  
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -52,17 +58,18 @@ const Ellipsis = ({ folderId, metadata, onSaveMetadata, onDelete, onRename }) =>
     setIsMenuOpen(false);
   };
 
+
   return (
     <>
       <div className="ellipsis-container" ref={menuRef}>
-        <button 
-          className="ellipsis-button" 
+        <button
+          className="ellipsis-button"
           onClick={handleMenuToggle}
           aria-label="Folder options"
         >
           ⋮
         </button>
-        
+
         {isMenuOpen && (
           <div className="ellipsis-menu">
             <p onClick={handleMetadataEdit}>Edit Metadata</p>
@@ -108,10 +115,10 @@ const Ellipsis = ({ folderId, metadata, onSaveMetadata, onDelete, onRename }) =>
           }
         `}</style>
       </div>
-      
+
       {/* Render the modal as a portal outside of the component hierarchy */}
-      <MetadataModal 
-        isOpen={isMetadataModalOpen} 
+      <MetadataModal
+        isOpen={isMetadataModalOpen}
         onClose={handleCloseModal}
         metadata={metadata}
         onSave={handleSaveMetadata}

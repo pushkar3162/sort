@@ -11,12 +11,12 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     size: `${Math.floor(Math.random() * 500)} KB`,
     tags: "important, work",
     description: "This folder contains important work documents",
-    permissions: "Private"
+    permissions: "Private",
   };
 
   const handleFolderClick = (e) => {
     // Check if the click is coming from the ellipsis container
-    if (!e.target.closest('.ellipsis-container')) {
+    if (!e.target.closest(".ellipsis-container")) {
       if (onFolderClick) {
         onFolderClick(folder);
       } else {
@@ -25,10 +25,10 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     }
   };
 
-<<<<<<< HEAD
+  // <<<<<<< HEAD
   const handleSaveMetadata = (updatedMetadata) => {
     console.log("Saving metadata for folder:", folder.id, updatedMetadata);
-    
+
     // In a real application, you would make an API call here
     // Example:
     // axios.post(`http://localhost:5000/api/folders/${folder.id}/metadata`, updatedMetadata)
@@ -38,31 +38,32 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     //   .catch(error => {
     //     console.error("Error saving metadata:", error);
     //   });
-    
+
     // For now, we'll just display an alert
     alert("Metadata saved successfully!");
   };
-=======
-    // Dummy metadata for folders and files
-    const dummyMetadata = {
-        folder: {
-            folderName: folder.name,
-            creationDate: "2023-10-01",
-            lastModified: "2023-10-05",
-            description:"none",
-        },
-        file: {
-            fileName: "example.txt",
-            creationDate: "2023-10-02",
-            lastModified: "2023-10-04",
-            description:"none",
-
-        },
-    };
->>>>>>> 38a585181ad3b3c7f143a1990db18a3ed4097651
+  // =======
+  // Dummy metadata for folders and files
+  const dummyMetadata = {
+    folder: {
+      folderName: folder.name,
+      creationDate: "2023-10-01",
+      lastModified: "2023-10-05",
+      description: "none",
+    },
+    file: {
+      fileName: "example.txt",
+      creationDate: "2023-10-02",
+      lastModified: "2023-10-04",
+      description: "none",
+    },
+  };
+  // >>>>>>> 38a585181ad3b3c7f143a1990db18a3ed4097651
 
   const handleDelete = (folderId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this folder?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this folder?"
+    );
     if (confirmDelete) {
       console.log("Deleting folder:", folderId);
       // Example API call:
@@ -73,7 +74,7 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
       //   .catch(error => {
       //     console.error("Error deleting folder:", error);
       //   });
-      
+
       // For now, just refresh folders
       fetchFolders();
     }
@@ -91,7 +92,7 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
       //   .catch(error => {
       //     console.error("Error renaming folder:", error);
       //   });
-      
+
       // For now, just refresh folders
       fetchFolders();
     }
@@ -101,7 +102,7 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     <div className="folder" onClick={handleFolderClick}>
       <div className="folder-icon">📁</div>
       <div className="folder-name">{folder.name}</div>
-      
+
       <div className="folder-actions">
         <Ellipsis
           folderId={folder.id}

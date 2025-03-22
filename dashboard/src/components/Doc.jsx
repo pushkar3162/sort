@@ -76,7 +76,8 @@ const Document = () => {
           <Badge
             style={{ backgroundColor: "#3A506B", color: "#F4EBDC" }} // Status badge styling
           >
-            {connectionStatus.charAt(0).toUpperCase() + connectionStatus.slice(1)}
+            {connectionStatus.charAt(0).toUpperCase() +
+              connectionStatus.slice(1)}
           </Badge>
         </div>
 
@@ -90,13 +91,15 @@ const Document = () => {
                 type="file"
                 multiple
                 onChange={(e) => {
-                  const newFiles = Array.from(e.target.files).map((file, index) => ({
-                    name: file.name,
-                    size: file.size || 0,
-                    type: file.type || "",
-                    lastModified: file.lastModified || Date.now(),
-                    id: `file-${Date.now()}-${index}`,
-                  }));
+                  const newFiles = Array.from(e.target.files).map(
+                    (file, index) => ({
+                      name: file.name,
+                      size: file.size || 0,
+                      type: file.type || "",
+                      lastModified: file.lastModified || Date.now(),
+                      id: `file-${Date.now()}-${index}`,
+                    })
+                  );
                   setFiles((prev) => [...prev, ...newFiles]);
                   socket.emit("fileUploaded", [...files, ...newFiles]);
                 }}
@@ -136,7 +139,10 @@ const Document = () => {
                     value={comments[index] || ""}
                     onChange={(e) => {
                       setComments({ ...comments, [index]: e.target.value });
-                      socket.emit("commentUpdated", { index, value: e.target.value });
+                      socket.emit("commentUpdated", {
+                        index,
+                        value: e.target.value,
+                      });
                     }}
                     className="mt-2"
                     style={{ color: "#3A506B", borderColor: "#3A506B" }} // Styling for input

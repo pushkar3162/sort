@@ -96,7 +96,9 @@ function Version() {
 
         <div className="p-6">
           <div className="mb-8 p-6 border border-gray-200 rounded-lg bg-white shadow-sm">
-            <h3 className="text-xl font-semibold mb-4 border-b pb-2">Upload Document</h3>
+            <h3 className="text-xl font-semibold mb-4 border-b pb-2">
+              Upload Document
+            </h3>
             <form onSubmit={handleUpload}>
               <div className="mb-4">
                 <label className="block font-medium mb-2" htmlFor="docName">
@@ -135,10 +137,15 @@ function Version() {
           </div>
 
           <div className="mb-8 p-6 border border-gray-200 rounded-lg bg-white shadow-sm">
-            <h3 className="text-xl font-semibold mb-4 border-b pb-2">Check Document History</h3>
+            <h3 className="text-xl font-semibold mb-4 border-b pb-2">
+              Check Document History
+            </h3>
             <form onSubmit={handleHistorySearch}>
               <div className="mb-4">
-                <label className="block font-medium mb-2" htmlFor="historyDocName">
+                <label
+                  className="block font-medium mb-2"
+                  htmlFor="historyDocName"
+                >
                   Document Name:
                 </label>
                 <input

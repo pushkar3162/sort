@@ -7,7 +7,7 @@ const UploadButton = () => {
     <div className="upload-button-container">
       <button onClick={() => navigate("/upload")} className="upload-button">
         <i className="bi bi-upload"></i> {/* Bootstrap Upload Icon */}
-        Upload 
+        Upload
       </button>
     </div>
   );
