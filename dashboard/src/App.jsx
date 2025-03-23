@@ -18,7 +18,7 @@ import ViewerFolderDetails from "./components/ViewerDashboard/ViewerFolderDetail
 import "./index.css";
 import Dashboard from "./pages/Dashboard";
 import EditorDashboard from "./pages/EditorDashboard";
-import Viewerdashboard from "./pages/ViewerDashboard";
+import ViewerDashboard from "./pages/ViewerDashboard";
 
 const App = () => {
   const [members, setMembers] = useState([]); // Centralized members state
@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/" element={<AuthForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/editordashboard/*" element={<EditorDashboard />} />
-        <Route path="/viewerdashboard/*" element={<Viewerdashboard />} />
+        <Route path="/viewerdashboard/*" element={<ViewerDashboard />} />
         <Route path="/upload" element={<UploadForm />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/dashboard/:folderName" element={<FolderDetails />} />

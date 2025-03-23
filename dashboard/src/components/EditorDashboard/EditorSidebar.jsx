@@ -6,7 +6,7 @@ function EditorSidebar() {
       className="sidebar border-end p-3"
       style={{
         width: "250px",
-        marginTop: "60px", // ✅ Push below navbar
+        marginTop: "77px", // ✅ Push below navbar
         height: "calc(100vh - 56px)", // ✅ Ensure it fits screen
         position: "fixed", // ✅ Keep it fixed on the left
         top: "0",

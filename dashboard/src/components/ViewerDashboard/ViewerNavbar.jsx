@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Themetoggle from "../Themetoggle";
 
+
 const ViewerNavbar = () => {
   const navigate = useNavigate();
 
@@ -11,7 +12,7 @@ const ViewerNavbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary py-2 px-5">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-#3A506B py-2 px-5">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center">
           <img

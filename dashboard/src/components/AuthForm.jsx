@@ -99,7 +99,7 @@ function AuthForm() {
                   variant="contained"
                   fullWidth
                   size="large"
-                  style={{ backgroundColor: "#3A506B", color: "#000000" }}
+                  style={{ backgroundColor: "#3A506B", color: "#ffffff" }}
                 >
                   {isLogin ? "Login" : "Sign Up"}
                 </Button>

@@ -52,7 +52,7 @@ const ViewerFileExplorer = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={styles.fileExplorer}>
-        <h1 style={styles.title}>📂 Editor File Manager</h1>
+        <h1 style={styles.title}>📂 Viewer File Manager</h1>
 
         {/* Toolbar Section */}
         <div style={styles.toolbar}>

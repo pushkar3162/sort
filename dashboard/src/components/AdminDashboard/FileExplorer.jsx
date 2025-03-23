@@ -6,6 +6,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Link, useNavigate } from "react-router-dom";
 import filesFoldersData from "../../../folderFilesData.js";
 import Folder from "../Folder.jsx";
+import { Height } from "@mui/icons-material";
+import { maxHeight } from "@mui/system";
 
 const styles = {
   fileExplorer: {
@@ -14,10 +16,10 @@ const styles = {
     // borderRadius: "8px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
     width: "calc(100% - 250px)",
-    maxWidth: "1200px",
+    maxWidth: "1300px",
     position: "absolute",
-    top: "56px",
-    left: "250px",
+    top: "62px",
+    left: "300px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

@@ -16,7 +16,7 @@
 .editor-sidebar {
     width: 20%;
     min-width: 250px;
-    background-color: #e8f0fe;  /* Light blue shade for differentiation */
+    background-color: #F4EBDC;  /* Light blue shade for differentiation */
     padding: 10px;
 }
 
@@ -24,7 +24,7 @@
 .editor-main-content {
     flex: 3;
     padding: 20px;
-    background-color: #fff;
+    background-color: #F4EBDC;
 }
 
 /* Title styling */
@@ -37,7 +37,7 @@
 /* Navbar Styling */
 .editor-navbar {
     width: 100%;
-    background-color: #3b5998; /* Dark blue */
+    background-color: #f4ebdc !important; /* Dark blue */
     color: white;
     padding: 10px;
     text-align: center;

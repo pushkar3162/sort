@@ -1,4 +1,5 @@
 import React from "react";
+import "./Dashboard.css";
 import Sidebar from "../components/AdminDashboard/Sidebar";
 import Navbar from "../components/AdminDashboard/Navbar";
 import { Routes, Route } from "react-router-dom";

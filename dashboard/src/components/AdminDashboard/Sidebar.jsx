@@ -5,8 +5,16 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 function Sidebar() {
   return (
     <div
-      className="sidebar border border-right col-md-3 col-lg-2 p-0 vh-100 fs-5"
-      style={{ width: "250px", backgroundColor: "#F4EBDC" }}
+      className="sidebar border border-right col-md-2 col-lg-2 p-0 vh-100 fs-5"
+      style={{ 
+        width: "250px",
+        backgroundColor: "#F4EBDC",
+        position: "fixed",
+        top: "56px", // Adjust according to your navbar height
+        left: "0",
+        height: "calc(100vh - 56px)", // Makes sure sidebar fills the remaining space
+        overflowY: "auto",
+       }}
     >
       <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul className="nav flex-column">

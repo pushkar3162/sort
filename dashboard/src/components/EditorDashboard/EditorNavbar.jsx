@@ -20,13 +20,11 @@ const EditorNavbar = () => {
             alt="Editor Avatar"
             width="40"
             height="40"
+            
           />
           <span className="text-white d-none d-md-block fw-bold">EDITOR</span>
         </div>
 
-        <div className="flex-grow-1 mx-5">
-          <Searchbar />
-        </div>
 
         <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
           <li className="nav-item">

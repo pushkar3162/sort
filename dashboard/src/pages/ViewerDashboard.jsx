@@ -1,8 +1,8 @@
 import React from "react";
-import "./ViewerDashboard.css";
+import "./ViewerDashboard.css" ;
 import ViewerSidebar from "../components/ViewerDashboard/ViewerSidebar";
 import ViewerNavbar from "../components/ViewerDashboard/ViewerNavbar";
-import { Routes, Route } from "react-router-dom";
+
 import ViewerFileExplorer from "../components/ViewerDashboard/ViewerFileExplorer";
 
 export const ViewerDashboard = () => {
@@ -16,6 +16,7 @@ export const ViewerDashboard = () => {
         {/* Apply dashboard content class */}
         <ViewerSidebar className="editor-sidebar" />
         <main className="editor-main-content">
+          
           <ViewerFileExplorer />
         </main>
       </div>
