@@ -4,6 +4,16 @@ import Searchbar from "../Searchbar";
 
 const EditorNavbar = () => {
   const navigate = useNavigate();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("auth_token");
@@ -26,42 +36,35 @@ const EditorNavbar = () => {
         </div>
 
 
-        <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
-          <li className="nav-item">
-            <Themetoggle />
-          </li>
-          <li className="nav-item">
-            <div className="vr bg-light"></div>
-          </li>
-          <li className="nav-item">
-            <button
-              onClick={handleLogout}
-              className="nav-link d-flex align-items-center text-white bg-transparent border-0"
-              style={{ cursor: "pointer" }}
-            >
-              <span className="me-1">
-                <svg
-                  className="bi bi-box-arrow-right"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L7.707 8l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M1 8a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8A.5.5 0 0 1 1 8z"
-                  />
-                </svg>
-              </span>
-              Logout
-            </button>
-          </li>
-        </ul>
+      {/* Right Section - Theme Toggle & Logout */}
+      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+        <button
+          onClick={toggleTheme}
+          style={{
+            backgroundColor: "transparent",
+            color: "#ffffff",
+            border: "1px solid #ffffff",
+            padding: "8px 14px",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+        >
+          {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+        </button>
+
+        <button
+          onClick={handleLogout}
+          style={{
+            backgroundColor: "transparent",
+            color: "#ffffff",
+            border: "1px solid #ffffff",
+            padding: "8px 14px",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+        >
+          Logout
+        </button>
       </div>
     </nav>
   );
