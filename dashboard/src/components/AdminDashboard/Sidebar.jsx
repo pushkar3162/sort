@@ -10,20 +10,16 @@ function Sidebar() {
         width: "250px",
         backgroundColor: "#F4EBDC",
         position: "fixed",
-        top: "56px", // Adjust according to your navbar height
+        top: "56px",
         left: "0",
-        height: "calc(100vh - 56px)", // Makes sure sidebar fills the remaining space
+        height: "calc(100vh - 56px)",
         overflowY: "auto",
-       }}
+      }}
     >
       <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <Link
-              className="nav-link d-flex align-items-center gap-2 active"
-              to="/dashboard"
-              style={{ color: "#3A506B" }}
-            >
+            <Link className="nav-link d-flex align-items-center gap-2 active" to="/dashboard" style={{ color: "#3A506B" }}>
               <i className="bi bi-house-door-fill"></i>
               Dashboard
             </Link>
@@ -47,21 +43,13 @@ function Sidebar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              className="nav-link d-flex align-items-center gap-2"
-              to="/activity-logs"
-              style={{ color: "#3A506B" }}
-            >
+            <Link className="nav-link d-flex align-items-center gap-2" to="/activity-logs" style={{ color: "#3A506B" }}>
               <i className="bi bi-clipboard-check-fill"></i>
               User Activity Log
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              className="nav-link d-flex align-items-center gap-2"
-              to="/document-logs"
-              style={{ color: "#3A506B" }}
-            >
+            <Link className="nav-link d-flex align-items-center gap-2" to="/document-logs" style={{ color: "#3A506B" }}>
               <i className="bi bi-file-earmark-text-fill"></i>
               Document Log
             </Link>
@@ -79,13 +67,17 @@ function Sidebar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              className="nav-link d-flex align-items-center gap-2"
-              to="/doc"
-              style={{ color: "#3A506B" }}
-            >
+            <Link className="nav-link d-flex align-items-center gap-2" to="/doc" style={{ color: "#3A506B" }}>
               <i className="bi bi-folder-fill"></i>
               My Documents
+            </Link>
+          </li>
+
+          {/* ✅ New AI Features Button */}
+          <li className="nav-item">
+            <Link className="nav-link d-flex align-items-center gap-2" to="/ai-features" style={{ color: "#3A506B" }}>
+              <i className="bi bi-robot"></i> 
+              AI Features
             </Link>
           </li>
         </ul>

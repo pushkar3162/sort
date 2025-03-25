@@ -19,6 +19,7 @@ import "./index.css";
 import Dashboard from "./pages/Dashboard";
 import EditorDashboard from "./pages/EditorDashboard";
 import ViewerDashboard from "./pages/ViewerDashboard";
+import AiFeatures from "./pages/AiFeatures"; // ✅ Import AI Features Page
 
 const App = () => {
   const [members, setMembers] = useState([]); // Centralized members state
@@ -33,28 +34,17 @@ const App = () => {
         <Route path="/upload" element={<UploadForm />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/dashboard/:folderName" element={<FolderDetails />} />
-        <Route
-          path="/editordashboard/:folderName"
-          element={<EditorFolderDetails />}
-        />
-        <Route
-          path="/viewerdashboard/:folderName"
-          element={<ViewerFolderDetails />}
-        />
-
+        <Route path="/editordashboard/:folderName" element={<EditorFolderDetails />} />
+        <Route path="/viewerdashboard/:folderName" element={<ViewerFolderDetails />} />
         <Route path="/activity-logs" element={<ActivityLogs />} />
         <Route path="/document-logs" element={<DocumentLogs />} />
         <Route path="/doc" element={<Doc />} />
         <Route path="/version" element={<Version />} />
-
-        <Route
-          path="/add-user"
-          element={<RoleBasedUI members={members} setMembers={setMembers} />}
-        />
-        <Route
-          path="/members-list"
-          element={<MembersList members={members} setMembers={setMembers} />}
-        />
+        <Route path="/add-user" element={<RoleBasedUI members={members} setMembers={setMembers} />} />
+        <Route path="/members-list" element={<MembersList members={members} setMembers={setMembers} />} />
+        
+        {/* ✅ New AI Features Route */}
+        <Route path="/ai-features" element={<AiFeatures />} />
       </Routes>
     </Router>
   );
