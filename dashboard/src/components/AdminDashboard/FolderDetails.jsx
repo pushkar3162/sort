@@ -4,13 +4,13 @@ import filesFoldersData from "../../../folderFilesData"; // Import mock data
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Ellipsis from "../Ellipsis";
+import axios from "axios";
 
 const FolderDetails = () => {
   const { folderName } = useParams();
   const [folderData, setFolderData] = useState(null);
 
   useEffect(() => {
-    // Find folder data from the mock dataset
     const folder = filesFoldersData.find((f) => f.name === folderName);
     console.log("folder:", folder);
     setFolderData(folder);
@@ -24,6 +24,7 @@ const FolderDetails = () => {
       }));
     }
   };
+
   const handleRename = (fileId) => {
     const newName = prompt("Enter new file name:");
     if (newName) {
@@ -35,34 +36,43 @@ const FolderDetails = () => {
       }));
     }
   };
+
   const handleMove = (fileId) => {
     const newFolderName = prompt("Enter the new folder name to move the file:");
     if (newFolderName) {
       alert(`Moving file ${fileId} to folder ${newFolderName}`);
-      // Here, you would handle moving the file in your actual API
     }
   };
 
-  // function to trigger
   const triggerFileInput = () => {
     document.getElementById("fileInput").click();
   };
 
-  // handle file upload
   const handleFileUpload = (event) => {
-    const file = event.target.files[0]; // Get the selected file
+    const file = event.target.files[0];
     if (file && folderData) {
       const newFile = {
         id: Date.now(),
         name: file.name,
-        size: `${(file.size / 1024).toFixed(2)} KB`, // Convert bytes to KB
+        size: `${(file.size / 1024).toFixed(2)} KB`,
       };
 
-      // Update the folder state with the new file
       setFolderData((prevFolder) => ({
         ...prevFolder,
         files: [...prevFolder.files, newFile],
       }));
+    }
+  };
+
+  const createFolder = async () => {
+    const name = prompt("Enter folder name:");
+    if (name) {
+      try {
+        await axios.post("http://localhost:5000/api/folders/create", { name });
+        alert("Folder created successfully!");
+      } catch (error) {
+        console.error("Error creating folder:", error);
+      }
     }
   };
 
@@ -93,34 +103,59 @@ const FolderDetails = () => {
             minWidth: "60%",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h1>📁 {folderName}</h1>
-            <button
-              onClick={triggerFileInput}
-              style={{
-                backgroundColor: "gray",
-                color: "white",
-                padding: "10px 15px",
-                borderRadius: "5px",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "16px",
-                // position: "absolute",
-                // top: "20px",
-                // right: "20px",
-              }}
-            >
-              📤 Upload
-            </button>
+          {/* 🔸 Top Section: Title on left, buttons on right */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "20px",
+              flexWrap: "wrap",
+            }}
+          >
+            <h1 style={{ margin: 0 }}>📁 {folderName}</h1>
 
-            {/* Hidden file input */}
-            <input
-              type="file"
-              id="fileInput"
-              style={{ display: "none" }}
-              onChange={handleFileUpload}
-            />
+            <div style={{ display: "flex", gap: "8px" }}>
+              <button
+                onClick={createFolder}
+                style={{
+                  backgroundColor: "#3A506B",
+                  color: "white",
+                  padding: "10px 15px",
+                  borderRadius: "5px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                📂 New Folder
+              </button>
+
+              <button
+                onClick={triggerFileInput}
+                style={{
+                  backgroundColor: "#3A506B",
+                  color: "white",
+                  padding: "10px 15px",
+                  borderRadius: "5px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                📤 Upload
+              </button>
+
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={handleFileUpload}
+              />
+            </div>
           </div>
+
+          {/* 🔹 File List */}
           {folderData ? (
             <ul>
               {folderData.files.map((file) => (
@@ -134,7 +169,6 @@ const FolderDetails = () => {
                   }}
                 >
                   <span>
-                    {" "}
                     📄 {file.name} ({file.size})
                   </span>
                   <Ellipsis
@@ -149,7 +183,11 @@ const FolderDetails = () => {
           ) : (
             <p>Folder not found!</p>
           )}
-          <Link to="/dashboard">⬅ Back to File Explorer</Link>
+
+          {/* 🔙 Back Button */}
+          <Link to="/dashboard" style={{ marginTop: "20px", display: "inline-block" }}>
+            ⬅ Back to File Explorer
+          </Link>
         </div>
       </div>
     </div>
