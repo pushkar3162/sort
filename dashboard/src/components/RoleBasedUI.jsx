@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const RoleBasedUI = ({ members, setMembers }) => {
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("Viewer");
+  const [role, setRole] = useState("viewer");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const RoleBasedUI = ({ members, setMembers }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (error || email.trim() === "") return;
 
@@ -37,12 +37,37 @@ const RoleBasedUI = ({ members, setMembers }) => {
       return;
     }
 
-    const updatedMembers = [...members, { email, role }];
-    setMembers(updatedMembers);
-    localStorage.setItem("members", JSON.stringify(updatedMembers));
-    setSuccess("User added successfully!");
-    setEmail("");
-    setRole("Viewer");
+    const token = localStorage.getItem("auth_token");
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("new_role", role);
+
+    try {
+      const response = await fetch("http://localhost:8000/auth/change-role", {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.detail || "Failed to assign role.");
+        return;
+      }
+
+      const updatedMembers = [...members, { email, role }];
+      setMembers(updatedMembers);
+      localStorage.setItem("members", JSON.stringify(updatedMembers));
+      setSuccess("User role assigned successfully!");
+      setEmail("");
+      setRole("viewer");
+      setError("");
+    } catch (err) {
+      console.error("Error while assigning role:", err);
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -74,8 +99,8 @@ const RoleBasedUI = ({ members, setMembers }) => {
             onChange={(e) => setRole(e.target.value)}
             style={styles.select}
           >
-            <option value="Viewer">Viewer</option>
-            <option value="Editor">Editor</option>
+            <option value="viewer">Viewer</option>
+            <option value="editor">Editor</option>
           </select>
 
           <div style={styles.buttonContainer}>
@@ -111,15 +136,15 @@ const styles = {
   },
 
   card: {
-    backgroundColor: "#F4EBDC", // Warm Sand
+    backgroundColor: "#F4EBDC",
     padding: "25px",
     borderRadius: "12px",
-    border: "2px solid white", // White border added
-    boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.5)", // White shadow effect
-    width: "450px", // Reduced width for a compact design
+    border: "2px solid white",
+    boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.5)",
+    width: "450px",
     textAlign: "center",
     position: "relative",
-    color: "#3A506B", // Deep Steel Blue
+    color: "#3A506B",
   },
 
   membersButton: {
@@ -147,17 +172,17 @@ const styles = {
   form: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center", // Center align everything
+    alignItems: "center",
     gap: "10px",
     width: "100%",
   },
 
   label: {
-    alignSelf: "flex-start", // Align text labels to the left
+    alignSelf: "flex-start",
     fontSize: "14px",
     fontWeight: "bold",
     color: "#3A506B",
-    marginLeft: "10%", // Align labels with input width
+    marginLeft: "10%",
   },
 
   input: {
@@ -166,7 +191,7 @@ const styles = {
     border: "1px solid #A9927D",
     outline: "none",
     backgroundColor: "#FAF0E6",
-    width: "80%", // Smaller width
+    width: "80%",
     display: "block",
   },
 
@@ -176,14 +201,14 @@ const styles = {
     border: "1px solid #A9927D",
     outline: "none",
     backgroundColor: "#FAF0E6",
-    width: "80%", // Smaller width
+    width: "80%",
     display: "block",
   },
 
   buttonContainer: {
     display: "flex",
     justifyContent: "space-between",
-    width: "80%", // Match input width
+    width: "80%",
     marginTop: "10px",
   },
 
@@ -197,7 +222,7 @@ const styles = {
     fontSize: "14px",
     fontWeight: "bold",
     transition: "background 0.3s ease",
-    width: "30%", // Adjusted for equal spacing
+    width: "30%",
   },
 
   submitButton: {
@@ -210,7 +235,19 @@ const styles = {
     fontSize: "14px",
     fontWeight: "bold",
     transition: "background 0.3s ease",
-    width: "30%", // Adjusted for equal spacing
+    width: "30%",
+  },
+
+  error: {
+    color: "red",
+    fontSize: "12px",
+    marginTop: "5px",
+  },
+
+  success: {
+    color: "green",
+    fontSize: "12px",
+    marginTop: "5px",
   },
 };
 
