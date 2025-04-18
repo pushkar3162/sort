@@ -14,6 +14,8 @@ const EditorFileExplorer = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const navigate = useNavigate(); // ✅ Initialize navigate
+
   useEffect(() => {
     fetchFolders();
   }, []);
@@ -45,9 +47,9 @@ const EditorFileExplorer = () => {
     setIsDropdownOpen(false);
   };
 
-  const filteredFolders = folders.filter((folder) => {
-    return folder.name.toLowerCase().includes(searchValue.toLowerCase());
-  });
+  const filteredFolders = folders.filter((folder) =>
+    folder.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
