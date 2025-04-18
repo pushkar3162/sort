@@ -1,78 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ActivityLogs.css";
-import { FaFilter, FaTimes } from "react-icons/fa";
+import axios from "axios";
+import Filters from "./Filters";
+import LogTable from "./LogTable";
+import { useNavigate } from "react-router-dom"; // ✅ For back navigation
 
 const ActivityLogs = () => {
-  const initialLogs = [
-    { user: "user1@example.com", action: "Uploaded Document", document: "Report.pdf", timestamp: "18/2/2025, 3:30:00 pm" },
-    { user: "admin@example.com", action: "Deleted Document", document: "Old_Manual.pdf", timestamp: "17/2/2025, 9:00:00 pm" },
-    { user: "editor@example.com", action: "Edited Metadata", document: "Project_Plan.pdf", timestamp: "16/2/2025, 5:50:00 pm" },
-  ];
+  const [logs, setLogs] = useState([]);
+  const [filteredLogs, setFilteredLogs] = useState([]);
+  const [filters, setFilters] = useState({ user: "", action: "" });
 
-  const [logs] = useState(initialLogs);
-  const [userFilter, setUserFilter] = useState("");
-  const [actionFilter, setActionFilter] = useState("");
-  const [filteredLogs, setFilteredLogs] = useState(initialLogs);
+  const navigate = useNavigate(); // ✅ React Router navigation
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/logs/users");
+        const fetchedLogs = response.data.logs;
+        setLogs(fetchedLogs);
+        setFilteredLogs(fetchedLogs);
+      } catch (error) {
+        console.error("Error fetching logs:", error);
+      }
+    };
+
+    fetchLogs();
+  }, []);
 
   const applyFilters = () => {
+    const { user, action } = filters;
     const filtered = logs.filter(
       (log) =>
-        log.user.toLowerCase().includes(userFilter.toLowerCase()) &&
-        log.action.toLowerCase().includes(actionFilter.toLowerCase())
+        log.username.toLowerCase().includes(user.toLowerCase()) &&
+        log.action.toLowerCase().includes(action.toLowerCase())
     );
     setFilteredLogs(filtered);
   };
 
   const clearFilters = () => {
-    setUserFilter("");
-    setActionFilter("");
-    setFilteredLogs(initialLogs);
+    setFilters({ user: "", action: "" });
+    setFilteredLogs(logs);
   };
 
   return (
     <div className="container">
+      {/* ✅ Back Button at Top-Left */}
+      <button className="back-button" onClick={() => navigate(-1)}>
+        Back
+      </button>
+
       <h2 className="title">User Activity Logs</h2>
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Filter by user"
-          value={userFilter}
-          onChange={(e) => setUserFilter(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Filter by action"
-          value={actionFilter}
-          onChange={(e) => setActionFilter(e.target.value)}
-        />
-        <button onClick={applyFilters} className="filter-btn">
-          <FaFilter /> Apply
-        </button>
-        <button onClick={clearFilters} className="clear-btn">
-          <FaTimes /> Clear
-        </button>
-      </div>
+
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+        applyFilters={applyFilters}
+        clearFilters={clearFilters}
+        logs={logs}
+      />
+
       <div className="table-container">
-        <table className="activity-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Action</th>
-              <th>Document</th>
-              <th>Timestamp</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredLogs.map((log, index) => (
-              <tr key={index}>
-                <td>{log.user}</td>
-                <td>{log.action}</td>
-                <td>{log.document}</td>
-                <td>{log.timestamp}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <LogTable logs={filteredLogs} />
       </div>
     </div>
   );
