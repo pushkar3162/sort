@@ -54,7 +54,9 @@ const Ellipsis = ({
   const handleAction = (action, e) => {
     e.preventDefault();
     e.stopPropagation();
-    action();
+    if (action) {
+      action();
+    }
     setIsMenuOpen(false);
   };
 
@@ -72,13 +74,13 @@ const Ellipsis = ({
         {isMenuOpen && (
           <div className="ellipsis-menu">
             <p onClick={handleMetadataEdit}>Edit Metadata</p>
-            <p onClick={(e) => handleAction(() => onDownload(folderId), e)}>
+            <p onClick={(e) => handleAction(() => onDownload?.(folderId), e)}>
               Download
             </p>
-            <p onClick={(e) => handleAction(() => onRename(folderId), e)}>
+            <p onClick={(e) => handleAction(() => onRename?.(folderId), e)}>
               Rename
             </p>
-            <p onClick={(e) => handleAction(() => onDelete(folderId), e)}>
+            <p onClick={(e) => handleAction(() => onDelete?.(folderId), e)}>
               Delete
             </p>
           </div>
