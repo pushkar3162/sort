@@ -52,6 +52,13 @@ export function ViewerSidebar() {
       <hr className="my-3" />
 
       <ul className="nav flex-column mb-auto">
+         {/* ✅ New AI Features Button */}
+         <li className="nav-item">
+            <Link className="nav-link d-flex align-items-center gap-2" to="/ai-features" style={{ color: "#3A506B" }}>
+              <i className="bi bi-robot"></i> 
+              AI Features
+            </Link>
+          </li>
         <li className="nav-item">
           <Link
             className="nav-link d-flex align-items-center gap-2"
