@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Ellipsis from "./Ellipsis";
 import axios from "axios";
 
@@ -6,6 +6,9 @@ import axios from "axios";
 const folderIconBase64 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNNDY0IDEyOEgyNzJsLTY0LTY0SDQ4QzIxLjQ5IDY0IDAgODUuNDkgMCAxMTJ2Mjg4YzAgMjYuNTEgMjEuNDkgNDggNDggNDhoNDE2YzI2LjUxIDAgNDgtMjEuNDkgNDgtNDhWMTc2YzAtMjYuNTEtMjEuNDktNDgtNDgtNDh6IiBmaWxsPSIjZTliYjQxIi8+PC9zdmc+";
 
 const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
+  // State to track if modal is open
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   // Create default metadata if not provided
   const ensureMetadata = () => {
     if (!folder.metadata) {
@@ -22,6 +25,16 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
   };
 
   const handleFolderClick = (e) => {
+    // If modal is open, don't navigate
+    if (isModalOpen) {
+      return;
+    }
+    
+    // If the click came from the modal overlay, don't navigate
+    if (e.target.closest('.modal-overlay')) {
+      return;
+    }
+    
     // If the click is coming from the ellipsis menu or its children, don't navigate
     if (e.target.closest('.ellipsis-container')) {
       return;
@@ -31,6 +44,11 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
     if (onFolderClick) {
       onFolderClick(folder.name);
     }
+  };
+
+  // Track modal state changes
+  const handleModalStateChange = (isOpen) => {
+    setIsModalOpen(isOpen);
   };
 
   const handleSaveMetadata = async (updatedMetadata) => {
@@ -105,9 +123,10 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '10px',
-        cursor: 'pointer',
+        cursor: isModalOpen ? 'default' : 'pointer', // Change cursor when modal is open
         boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
         transition: 'transform 0.2s, box-shadow 0.2s',
+        pointerEvents: isModalOpen ? 'none' : 'auto', // Disable pointer events when modal is open
       }}
     >
       <div 
@@ -116,7 +135,9 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
           top: '5px', 
           right: '5px', 
           zIndex: 10,
+          pointerEvents: 'auto', // Always enable pointer events for menu
         }}
+        onClick={(e) => e.stopPropagation()} // Stop click from reaching folder
       >
         <Ellipsis
           folderId={folder.id}
@@ -125,6 +146,7 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
           onDelete={handleDelete}
           onRename={handleRename}
           onDownload={handleDownload}
+          onModalStateChange={handleModalStateChange} // Pass modal state handler
         />
       </div>
       

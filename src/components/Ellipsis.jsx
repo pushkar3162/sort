@@ -114,7 +114,8 @@ const Ellipsis = ({
   onDelete,
   onRename,
   onDownload,
-  onMove
+  onMove,
+  onModalStateChange  // New prop to communicate modal state to parent
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMetadataModalOpen, setIsMetadataModalOpen] = useState(false);
@@ -137,6 +138,13 @@ const Ellipsis = ({
       window.removeEventListener("modalOpen", handleModalOpen);
     };
   }, []);
+
+  // Communicate modal state changes to parent component
+  useEffect(() => {
+    if (onModalStateChange) {
+      onModalStateChange(isMetadataModalOpen);
+    }
+  }, [isMetadataModalOpen, onModalStateChange]);
 
   const handleMenuToggle = (e) => {
     e.preventDefault();

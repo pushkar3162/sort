@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-const FileMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
+const FileMetadataModal = ({ isOpen, onClose, metadata, documentId, onSave }) => {
   // Initialize with provided metadata or default values
+  // Only keeping title (name), tags, and permissions
   const [editableMetadata, setEditableMetadata] = useState({
-    name: metadata?.name || "",
-    createdAt: metadata?.createdAt || new Date().toISOString().split("T")[0],
-    modifiedAt: metadata?.modifiedAt || new Date().toISOString().split("T")[0],
-    owner: metadata?.owner || "Current User",
-    tags: metadata?.tags || "",
-    description: metadata?.description || "",
-    permissions: metadata?.permissions || "Private",
+    title: metadata?.title || "",
+    tags: metadata?.tags || [],
+    permissions: metadata?.permissions || ["Private"],
   });
 
   // Re-initialize the state when metadata prop changes
   useEffect(() => {
     if (metadata) {
       setEditableMetadata({
-        name: metadata.name || "",
-        createdAt: metadata.createdAt || new Date().toISOString().split("T")[0],
-        modifiedAt: metadata.modifiedAt || new Date().toISOString().split("T")[0],
-        owner: metadata.owner || "Current User",
-        tags: metadata.tags || "",
-        description: metadata.description || "",
-        permissions: metadata.permissions || "Private",
+        title: metadata.title || "",
+        tags: Array.isArray(metadata.tags) ? metadata.tags : (metadata.tags ? metadata.tags.split(',').map(tag => tag.trim()) : []),
+        permissions: metadata.permissions || ["Private"],
       });
     }
   }, [metadata]);
@@ -42,10 +35,17 @@ const FileMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
     }));
   };
 
+  const handleTagsChange = (e) => {
+    // Convert comma-separated string to array of tags
+    const tagsArray = e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+    handleChange("tags", tagsArray);
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    onSave(editableMetadata);
+    // Include the documentId in the save operation
+    onSave({ ...editableMetadata, documentId });
   };
 
   const stopPropagation = (e) => e.stopPropagation();
@@ -55,46 +55,17 @@ const FileMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
   return ReactDOM.createPortal(
     <div className="metadata-modal-overlay" onClick={onClose}>
       <div className="metadata-modal" onClick={stopPropagation}>
-        <h3>Edit File Metadata</h3>
+        <h3>Edit Document Metadata</h3>
+        <p>Document ID: {documentId}</p>
         <table className="metadata-table">
           <tbody>
             <tr>
-              <td>Name</td>
+              <td>Title</td>
               <td>
                 <input
                   type="text"
-                  value={editableMetadata.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Created</td>
-              <td>
-                <input
-                  type="date"
-                  value={editableMetadata.createdAt}
-                  onChange={(e) => handleChange("createdAt", e.target.value)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Modified</td>
-              <td>
-                <input
-                  type="date"
-                  value={editableMetadata.modifiedAt}
-                  onChange={(e) => handleChange("modifiedAt", e.target.value)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Owner</td>
-              <td>
-                <input
-                  type="text"
-                  value={editableMetadata.owner}
-                  onChange={(e) => handleChange("owner", e.target.value)}
+                  value={editableMetadata.title}
+                  onChange={(e) => handleChange("title", e.target.value)}
                 />
               </td>
             </tr>
@@ -103,8 +74,8 @@ const FileMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
               <td>
                 <input
                   type="text"
-                  value={editableMetadata.tags}
-                  onChange={(e) => handleChange("tags", e.target.value)}
+                  value={editableMetadata.tags.join(', ')}
+                  onChange={handleTagsChange}
                   placeholder="Separate with commas"
                 />
               </td>
@@ -113,23 +84,13 @@ const FileMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
               <td>Permissions</td>
               <td>
                 <select
-                  value={editableMetadata.permissions}
-                  onChange={(e) => handleChange("permissions", e.target.value)}
+                  value={editableMetadata.permissions[0]}
+                  onChange={(e) => handleChange("permissions", [e.target.value])}
                 >
                   <option value="Private">Private</option>
                   <option value="Public">Public</option>
                   <option value="Shared">Shared</option>
                 </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Description</td>
-              <td>
-                <textarea
-                  value={editableMetadata.description}
-                  onChange={(e) => handleChange("description", e.target.value)}
-                  rows="3"
-                />
               </td>
             </tr>
           </tbody>
@@ -191,15 +152,11 @@ const FileMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
           .metadata-table input,
           .metadata-table select,
           .metadata-table textarea {
-            
             width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
-          }
-          .metadata-table textarea {
-            resize: vertical;
           }
           .modal-buttons {
             display: flex;

@@ -43,10 +43,16 @@ const FolderMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
     onSave(editableMetadata);
   };
 
+  // Handle overlay click with proper event stopping
+  const handleOverlayClick = (e) => {
+    e.stopPropagation(); // Stop click event from reaching folder component
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2 className="modal-title">Edit Folder Metadata</h2>
         
@@ -119,7 +125,10 @@ const FolderMetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
             <button type="submit" className="primary-button">
               Save Changes
             </button>
-            <button type="button" className="secondary-button" onClick={onClose}>
+            <button type="button" className="secondary-button" onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}>
               Cancel
             </button>
           </div>
