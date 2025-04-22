@@ -36,6 +36,7 @@ function EditorSidebar() {
             Document Log
           </Link>
         </li>
+        
       </ul>
       <hr className="my-3" style={{ borderColor: "#3A506B" }} />{" "}
       {/* ✅ Styled the hr */}
@@ -50,6 +51,13 @@ function EditorSidebar() {
             Settings
           </Link>
         </li>
+         {/* ✅ New AI Features Button */}
+         <li className="nav-item">
+            <Link className="nav-link d-flex align-items-center gap-2" to="/ai-features" style={{ color: "#3A506B" }}>
+              <i className="bi bi-robot"></i> 
+              AI Features
+            </Link>
+          </li>
         <li className="nav-item">
           <Link
             className="nav-link d-flex align-items-center gap-2 text-danger"
