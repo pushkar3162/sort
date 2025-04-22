@@ -12,7 +12,7 @@ import {
 import { io } from "socket.io-client";
 
 // Connect to WebSocket server
-//const socket = io("http://localhost:5000");
+const socket = io("http://localhost:5000");
 
 const Document = () => {
   const [files, setFiles] = useState([]);

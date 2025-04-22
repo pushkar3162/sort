@@ -1,0 +1,104 @@
+/* UploadForm.css */
+
+/* Center the upload form */
+.upload-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #F4EBDC; /* Light warm sand background */
+  padding: 20px;
+}
+
+/* Upload form box */
+.upload-form {
+  width: 100%;
+  max-width: 380px; /* Slightly reduced for a compact look */
+  background: #F4EBDC;
+  padding: 25px;
+  border-radius: 10px;
+  border: 2px solid white; /* White border for elegance */
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.5); /* Subtle white shadow */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add hover effect for a glowing feel */
+.upload-form:hover {
+  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.7); /* Stronger glow on hover */
+}
+
+/* Form Title */
+.upload-form h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3A506B;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.upload-form label {
+  font-weight: 500;
+  color: #3A506B;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Input Fields */
+.upload-form input,
+.upload-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid white; /* White border for consistency */
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  background: #FAF0E6; /* Soft beige for contrast */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input Focus Effect */
+.upload-form input:focus,
+.upload-form select:focus {
+  border-color: white;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
+}
+
+/* File Input */
+.upload-form input[type="file"] {
+  padding: 8px;
+  background: #FAF0E6;
+  cursor: pointer;
+}
+
+/* Submit Button */
+.upload-form .upload-submit {
+  width: 100%;
+  background-color: #3A506B; /* Deep steel blue */
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+/* Hover Effect */
+.upload-form .upload-submit:hover {
+  background-color: #C8B6A6;
+  color: #3A506B;
+  border: 2px solid #3A506B;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.6);
+}
+
+/* Success/Error Message */
+.upload-message {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3A506B;
+  margin-bottom: 10px;
+}

@@ -37,7 +37,7 @@ const EditorNavbar = () => {
         </div>
         </div>
 
-
+</div>
       {/* Right Section - Theme Toggle & Logout */}
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <button
