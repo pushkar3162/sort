@@ -1,0 +1,84 @@
+/* Full screen layout */
+.editor-dashboard-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: #3A506B;
+}
+
+/* Sidebar and content wrapper */
+.editor-dashboard-content {
+    display: flex;
+    flex: 1;
+}
+
+/* Sidebar styling */
+.editor-sidebar {
+    width: 20%;
+    min-width: 250px;
+    background-color: #F4EBDC;  /* Light blue shade for differentiation */
+    padding: 10px;
+}
+
+/* Main content styling */
+.editor-main-content {
+    flex: 3;
+    padding: 20px;
+    background-color: #F4EBDC;
+}
+
+/* Title styling */
+.editor-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Navbar Styling */
+.editor-navbar {
+    width: 100%;
+    background-color: #000000; /* Dark blue */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Button Styling */
+.editor-button {
+    background-color: #8B5E3B;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.editor-button:hover {
+    background-color: #2a4373;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .editor-sidebar {
+        width: 100%;
+        min-width: unset;
+    }
+    .editor-dashboard-content {
+        flex-direction: column;
+    }
+}
+
+.file-explorer {
+    padding: 10px;
+    background: #F4EBDC;
+    border-radius: 0px;
+    max-width: 1000px;
+    position: relative;
+    margin-top: 50px; /* Adjust this value as needed */
+    left: 300px;
+    right: 20px;
+  }
