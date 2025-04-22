@@ -77,17 +77,6 @@ const FolderDetails = () => {
     }
   };
 
-  const createFolder = async () => {
-    const name = prompt("Enter folder name:");
-    if (name) {
-      try {
-        await axios.post("http://localhost:5000/api/folders/create", { name });
-        alert("Folder created successfully!");
-      } catch (error) {
-        console.error("Error creating folder:", error);
-      }
-    }
-  };
 
   return (
     <div
