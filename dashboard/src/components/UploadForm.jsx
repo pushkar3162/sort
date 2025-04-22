@@ -34,16 +34,15 @@ const UploadForm = () => {
     formData.append("uploaded_by", "1"); // Replace with actual user ID if needed
 
     // ✅ Get token from localStorage
-    const token = localStorage.getItem("token");
-
+    const token = localStorage.getItem("auth_token");
+ 
     try {
       const response = await fetch("http://localhost:8000/documents/upload", {
         method: "POST",
         body: formData,
-        headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJydXNoaWtlc2hyYWtkZTQwNUBnbWFpbC5jb20iLCJyb2xlIjoiZWRpdG9yIiwiZXhwIjoxNzQ0ODM2OTc5fQ.4hdMey76ggMmIzN8Qf_BhK8ceypfh1sC05G9icXqonI"}`, // 🔐 Add this header for authentication
-        },
-      });
+         // 🔐 Add this header for authentication
+         headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
 
       if (response.ok) {
         setMessage("File uploaded successfully!");

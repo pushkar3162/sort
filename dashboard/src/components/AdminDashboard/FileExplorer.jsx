@@ -74,7 +74,7 @@ const styles = {
 };
 
 const FileExplorer = () => {
-  const [folders, setFolders] = useState(filesFoldersData);
+  const [folders, setFolders] = useState([]);
   const [selectedFolder, setSelectedFolder] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -87,25 +87,77 @@ const FileExplorer = () => {
 
   const fetchFolders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/folders");
-      setFolders(res.data.folders);
+      const res = await axios.get("http://127.0.0.1:8000/folders");
+      console.log("Fetched folders:", res.data);
+      
+      setFolders(res.data ||[]);
     } catch (error) {
       console.error("Error fetching folders:", error);
+      setFolders([]);
     }
   };
 
   const createFolder = async () => {
     const name = prompt("Enter folder name:");
-    if (name) {
-      try {
-        await axios.post("http://localhost:5000/api/folders/create", { name });
-        fetchFolders();
-      } catch (error) {
-        console.error("Error creating folder:", error);
+    if (!name || !name.trim()) {
+      alert("Folder name cannot be empty.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("folder_name", name.trim());
+  
+    try {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        alert("You are not logged in. Please log in to create a folder.");
+        return;
+      }
+  
+      console.log("Token:", token);
+  
+      const response = await axios.post(
+        "http://127.0.0.1:8000/folders/create",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ✅ Fixed template literal
+            // Do NOT manually set Content-Type when using FormData!
+          },
+        }
+      );
+  
+      if (response.status === 200 || response.status === 201) {
+        alert("Folder created successfully!");
+        fetchFolders(); // Refresh the folder list to display the new folder
+      } else {
+        alert("Failed to create folder.");
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error("Error creating folder:", error.response.data);
+  
+        if (error.response.status === 401) {
+          alert("Session expired. Please log in again.");
+          localStorage.removeItem("auth_token");
+          window.location.href = "/login"; // Redirect to login page
+        } else if (Array.isArray(error.response.data.detail)) {
+          const errorMessages = error.response.data.detail.map(
+            (err) => `${err.loc.join(" -> ")}: ${err.msg}` // ✅ Fixed
+          );
+          alert(`Validation Errors:\n${errorMessages.join("\n")}`); // ✅ Fixed
+        } else if (typeof error.response.data.detail === "string") {
+          alert(`Error: ${error.response.data.detail}`); // ✅ Fixed
+        } else {
+          alert("An unexpected error occurred.");
+        }
+      } else {
+        console.error("Error creating folder:", error.message);
+        alert("Error creating folder. Please try again.");
       }
     }
   };
-
+ 
   const handleFileUpload = async (event) => {
     if (!selectedFolder) {
       alert("Please select a folder first.");
@@ -120,7 +172,7 @@ const FileExplorer = () => {
     formData.append("folderId", selectedFolder);
 
     try {
-      await axios.post("http://localhost:5000/api/files/upload", formData, {
+      await axios.post("http://localhost:8000/documents/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("File uploaded successfully!");
@@ -182,19 +234,23 @@ const FileExplorer = () => {
           </div>
         )}
 
-        <div style={styles.folderContainer}>
-          {folders.map((folder, index) => (
-            <Link key={index} to={`/dashboard/${folder.name}`}>
-              {" "}
-              <Folder
-                key={folder.id}
-                folder={folder}
-                fetchFolders={fetchFolders}
-                setSelectedFolder={setSelectedFolder}
-              />
-            </Link>
-          ))}
-        </div>
+<div style={styles.folderContainer}>
+  {folders.length > 0 ? (
+    <>
+      {folders.map((folder) => (
+        <Link key={folder.id} to={`/dashboard/${folder.name}`}>
+          <Folder
+            folder={folder}
+            fetchFolders={fetchFolders}
+            setSelectedFolder={setSelectedFolder}
+          />
+        </Link>
+      ))}
+    </>
+  ) : (
+    <p>No folders available. Click "New" to create one!</p>
+  )}
+</div>
       </div>
     </DndProvider>
   );

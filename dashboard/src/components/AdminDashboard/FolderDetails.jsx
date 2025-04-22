@@ -63,12 +63,13 @@ const FolderDetails = () => {
       }));
     }
   };
-
+  const formData = new FormData();
+  formData.append("folder_name", name.trim());
   const createFolder = async () => {
     const name = prompt("Enter folder name:");
     if (name) {
       try {
-        await axios.post("http://localhost:5000/api/folders/create", { name });
+        await axios.post("http://127.0.0.1:8000/folders/create", { name });
         alert("Folder created successfully!");
       } catch (error) {
         console.error("Error creating folder:", error);
@@ -113,7 +114,7 @@ const FolderDetails = () => {
               flexWrap: "wrap",
             }}
           >
-            <h1 style={{ margin: 0 }}>📁 {folderName}</h1>
+            <h1 style={{ margin: 0 }}>📁 {folderName.folder_name}</h1>
 
             <div style={{ display: "flex", gap: "8px" }}>
               <button

@@ -86,7 +86,7 @@ const Ellipsis = ({
           </div>
         )}
 
-        <style jsx>{`
+        <style >{`
           .ellipsis-container {
             position: relative;
             display: inline-block;
