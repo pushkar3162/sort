@@ -77,6 +77,7 @@ const FolderDetails = () => {
     }
   };
 
+
   return (
     <div
       style={{
