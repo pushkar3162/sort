@@ -21,7 +21,7 @@ import EditorDashboard from "./pages/EditorDashboard";
 import ViewerDashboard from "./pages/ViewerDashboard";
 import AiFeatures from "./pages/AiFeatures";
 import ProtectedLayout from "./components/ProtectedLayout";
-
+import RoleBasedC from "./components/RoleBasedC";
 const App = () => {
   const [members, setMembers] = useState([]);
 
@@ -33,7 +33,7 @@ const App = () => {
 
         {/* Protected Routes */}
         <Route element={<ProtectedLayout />}>
-          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<RoleBasedC />} />
           <Route path="/editordashboard/*" element={<EditorDashboard />} />
           <Route path="/viewerdashboard/*" element={<ViewerDashboard />} />
           <Route path="/upload" element={<UploadForm />} />
