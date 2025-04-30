@@ -125,7 +125,7 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
   
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:8000/docs#/default/delete_endpoint_documents_delete__document_id__delete${folderId}`, {
+      await axios.delete(`http://localhost:8000/folders/delete/${folder.folder_id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -140,23 +140,44 @@ const Folder = ({ folder, fetchFolders, setSelectedFolder, onFolderClick }) => {
   };
   
 
-  const handleRename = (folderId) => {
-    const newName = prompt("Enter new folder name:", folder.folder_name);
+  const handleRename = () => {
+    const newName = prompt("Enter new folder name:")?.trim();
+  
     if (newName && newName !== folder.folder_name) {
-      console.log("Renaming folder:", folderId, "to", newName);
-     
-      axios.put(`http://127.0.0.1:8000/folders/${folderId}`, { name: newName })
-        .then(() => {
-          fetchFolders();
-        })
-        .catch(error => {
-          console.error("Error renaming folder:", error);
-        });
-
-      // For now, just refresh folders
-      fetchFolders();
+      console.log("Renaming folder:", folder.folder_name, "to", newName);
+  
+      // Create FormData and append the new_name field
+      const formData = new FormData();
+      formData.append('new_name', newName);
+  
+      axios.put(
+        `http://127.0.0.1:8000/folders/rename/${folder.folder_id}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Important for form data
+          },
+        }
+      )
+      .then(() => {
+        fetchFolders();
+      })
+      .catch(error => {
+        if (error.response) {
+          console.error("Error renaming folder:", error.response.data);
+        } else {
+          console.error("Error renaming folder:", error.message);
+        }
+      });
+    } else {
+      console.warn("Invalid folder name. Rename aborted.");
     }
   };
+  
+  
+
+
+
 
   return (
     <div className="folder-container">
