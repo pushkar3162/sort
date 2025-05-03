@@ -178,7 +178,8 @@ function AuthForm() {
                         error={!!errors.role}
                       >
                         <MenuItem value="admin">Admin</MenuItem>
-                        <MenuItem value="user">User</MenuItem>
+                        <MenuItem value="viewer">Viewer</MenuItem>
+                        <MenuItem value="editor">Editor</MenuItem>
                       </Select>
                     </FormControl>
                   </>

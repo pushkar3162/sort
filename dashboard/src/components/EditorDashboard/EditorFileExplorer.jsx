@@ -14,7 +14,7 @@ const EditorFileExplorer = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  const navigate = useNavigate(); // ✅ Initialize navigate
+ 
 
   useEffect(() => {
     fetchFolders();
