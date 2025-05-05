@@ -6,6 +6,7 @@ const UploadForm = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [permissions, setPermissions] = useState(""); // Now storing emails
+  const [folderName, setFolderName] = useState(""); // 🔹 New state for folder_name
   const [message, setMessage] = useState(""); // State to handle success message
 
   const handleFileChange = (e) => {
@@ -18,38 +19,36 @@ const UploadForm = () => {
       alert("Please select a file to upload.");
       return;
     }
-
+  
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
-
-    // Convert comma-separated tags into array
+  
     const tagList = tags.split(",").map((tag) => tag.trim());
-    tagList.forEach((tag) => formData.append("tags", tag));
-
-    // Split permissions into emails
+    formData.append("tags", JSON.stringify(tagList)); // ✅ Send as JSON string
+  
     const emailList = permissions.split(",").map((email) => email.trim());
-    emailList.forEach((email) => formData.append("permissions", email));
-
-    formData.append("uploaded_by", "1"); // Replace with actual user ID if needed
-
-    // ✅ Get token from localStorage
+    formData.append("permissions", JSON.stringify(emailList)); // ✅ Same here
+  
+    formData.append("uploaded_by", "1");
+    formData.append("folder_name", folderName);
+  
     const token = localStorage.getItem("auth_token");
- 
+  
     try {
       const response = await fetch("http://localhost:8000/documents/upload", {
         method: "POST",
         body: formData,
-         // 🔐 Add this header for authentication
-         headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
-
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+  
       if (response.ok) {
         setMessage("File uploaded successfully!");
         setFile(null);
         setTitle("");
         setTags("");
         setPermissions("");
+        setFolderName("");
       } else {
         const errorData = await response.json();
         setMessage(`Upload failed: ${errorData.detail}`);
@@ -59,7 +58,7 @@ const UploadForm = () => {
       setMessage("Error uploading file. Please try again.");
     }
   };
-
+  
   return (
     <div className="upload-form-container">
       <div className="upload-form">
@@ -92,6 +91,16 @@ const UploadForm = () => {
 
           <label>Choose File:</label>
           <input type="file" onChange={handleFileChange} required />
+
+          {/* 🔹 New input for folder_name */}
+          <label>Folder Name:</label>
+          <input
+            type="text"
+            value={folderName}
+            onChange={(e) => setFolderName(e.target.value)}
+            placeholder="Enter folder name"
+            required
+          />
 
           <button type="submit" className="upload-submit">
             Upload

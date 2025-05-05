@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+
 import filesFoldersData from "../../../folderFilesData"; // Import mock data
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
@@ -8,6 +9,8 @@ import axios from "axios";
 
 const FolderDetails = () => {
   const { folderName } = useParams();
+  const navigate = useNavigate();
+
   const [folderData, setFolderData] = useState(null);
 
   useEffect(() => {
@@ -134,19 +137,19 @@ const FolderDetails = () => {
               </button>
 
               <button
-                onClick={triggerFileInput}
-                style={{
-                  backgroundColor: "#3A506B",
-                  color: "white",
-                  padding: "10px 15px",
-                  borderRadius: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                }}
-              >
-                📤 Upload
-              </button>
+  onClick={() => navigate("/folder-upload")}
+  style={{
+    backgroundColor: "#3A506B",
+    color: "white",
+    padding: "10px 15px",
+    borderRadius: "5px",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "16px",
+  }}
+>
+  📤 Upload
+</button>
 
               <input
                 type="file"

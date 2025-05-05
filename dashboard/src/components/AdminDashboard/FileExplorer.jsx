@@ -238,7 +238,7 @@ const FileExplorer = () => {
   {folders.length > 0 ? (
     <>
       {folders.map((folder) => (
-        <Link key={folder.id} to={`/dashboard/${folder.name}`}>
+        <Link key={folder.id} to={`/dashboard/${folder.folder_name}`}>
           <Folder
             folder={folder}
             fetchFolders={fetchFolders}

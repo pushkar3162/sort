@@ -22,6 +22,7 @@ import ViewerDashboard from "./pages/ViewerDashboard";
 import AiFeatures from "./pages/AiFeatures";
 import ProtectedLayout from "./components/ProtectedLayout";
 import RoleBasedC from "./components/RoleBasedC";
+import FolderUpload from "./components/folderupload";
 const App = () => {
   const [members, setMembers] = useState([]);
 
@@ -48,6 +49,11 @@ const App = () => {
           <Route path="/add-user" element={<RoleBasedUI members={members} setMembers={setMembers} />} />
           <Route path="/members-list" element={<MembersList members={members} setMembers={setMembers} />} />
           <Route path="/ai-features" element={<AiFeatures />} />
+          <Route path="/dashboard/:folderName" element={<FolderUpload />} />
+
+
+          <Route path="/folder-upload" element={<FolderUpload />} />
+
         </Route>
       </Routes>
     </Router>
