@@ -17,7 +17,7 @@ const RoleBasedC = () => {
           throw new Error('No auth token found');
         }
 
-        const response = await fetch('auth/get-role', {
+        const response = await fetch('http://localhost:8000/auth/get-role', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
