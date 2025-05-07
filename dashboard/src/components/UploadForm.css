@@ -102,3 +102,19 @@
   color: #3A506B;
   margin-bottom: 10px;
 }
+.folder-documents {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.folder-documents ul {
+  list-style: none;
+  padding: 0;
+}
+
+.folder-documents li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}

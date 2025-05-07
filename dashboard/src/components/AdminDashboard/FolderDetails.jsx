@@ -12,11 +12,39 @@ const FolderDetails = () => {
   const navigate = useNavigate();
 
   const [folderData, setFolderData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const fetchFolderFiles = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("auth_token");
 
+      const response = await axios.get(
+        "http://localhost:8000/folders/all-documents",
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        }
+      );
+
+      const folder = response.data.find((f) => f.folder_name === folderName);
+
+      if (!folder) {
+        console.warn(`Folder "${folderName}" not found.`);
+        setFolderData([]);
+        return;
+      }
+      console.log("Folder data:", folder.files);
+      setFolderData(folder.files || []);
+      console.log("Folder data:", folderData);
+    } catch (error) {
+
+      console.error("Failed to fetch folder contents:", error);
+      setFolderData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const folder = filesFoldersData.find((f) => f.name === folderName);
-    console.log("folder:", folder);
-    setFolderData(folder);
+   fetchFolderFiles();
   }, [folderName]);
 
   const handleDelete = (fileId) => {
@@ -163,7 +191,7 @@ const FolderDetails = () => {
           {/* 🔹 File List */}
           {folderData ? (
             <ul>
-              {folderData.files.map((file) => (
+              {folderData.map((file) => (
                 <li
                   key={file.id}
                   style={{
@@ -174,7 +202,7 @@ const FolderDetails = () => {
                   }}
                 >
                   <span>
-                    📄 {file.name} ({file.size})
+                    📄 {file} 
                   </span>
                   <Ellipsis
                     fileId={file.id}
