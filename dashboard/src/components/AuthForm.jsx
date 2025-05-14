@@ -56,7 +56,7 @@ function AuthForm() {
         method: "POST",
         body: formData,
       });
-
+        console.log (res);
       const result = await res.json();
       if (res.ok) {
         localStorage.setItem("auth_token", result.access_token);
@@ -178,7 +178,8 @@ function AuthForm() {
                         error={!!errors.role}
                       >
                         <MenuItem value="admin">Admin</MenuItem>
-                        <MenuItem value="user">User</MenuItem>
+                        <MenuItem value="viewer">User</MenuItem>
+                       
                       </Select>
                     </FormControl>
                   </>

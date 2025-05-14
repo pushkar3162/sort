@@ -26,9 +26,7 @@ const ViewerNavbar = () => {
         </div>
 
         <ul className="navbar-nav d-flex flex-row align-items-center gap-3">
-          <li className="nav-item">
-            <Themetoggle />
-          </li>
+        
           <li className="nav-item">
             <div className="vr bg-light"></div>
           </li>

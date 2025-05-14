@@ -44,9 +44,9 @@ const RoleBasedC = () => {
     };
 
     // Only fetch if role is not already set
-    if (!role) {
+     
       fetchRole();
-    }
+    
   }, [role]);
 
   if (!role) {
