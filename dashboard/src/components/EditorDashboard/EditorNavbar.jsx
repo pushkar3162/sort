@@ -39,20 +39,7 @@ const EditorNavbar = () => {
 </div>
       {/* Right Section - Theme Toggle & Logout */}
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-        <button
-          onClick={toggleTheme}
-          style={{
-            backgroundColor: "transparent",
-            color: "#ffffff",
-            border: "1px solid #ffffff",
-            padding: "8px 14px",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
-        >
-          {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
-        </button>
-
+       
         <button
           onClick={handleLogout}
           style={{
