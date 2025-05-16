@@ -11,6 +11,26 @@ const UploadForm = () => {
   const [message, setMessage] = useState("");
   const [folderFiles, setFolderFiles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState(null); // 🔸 New state for current user ID
+
+  // 🔸 Fetch current user info on component mount
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const token = localStorage.getItem("auth_token");
+      if (!token) return;
+
+      try {
+        const response = await axios.get("http://localhost:8000/auth/get-user-info", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUserId(response.data.user_id); // Set userId from response
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -24,6 +44,11 @@ const UploadForm = () => {
       return;
     }
 
+    if (!userId) {
+      alert("User information not loaded. Please try again in a few seconds.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
@@ -34,7 +59,7 @@ const UploadForm = () => {
     const emailList = permissions.split(",").map((email) => email.trim());
     formData.append("permissions", JSON.stringify(emailList));
 
-    formData.append("uploaded_by", "1");
+    formData.append("uploaded_by", userId); // 🔸 Dynamically set current user ID
     formData.append("folder_name", folderName);
 
     const token = localStorage.getItem("auth_token");
@@ -53,7 +78,7 @@ const UploadForm = () => {
         setTags("");
         setPermissions("");
         setFolderName("");
-        fetchFolderFiles(); // Refresh list after upload
+        fetchFolderFiles(); // Refresh file list
       } else {
         const errorData = await response.json();
         setMessage(`Upload failed: ${errorData.detail}`);
@@ -95,12 +120,9 @@ const UploadForm = () => {
 
   useEffect(() => {
     if (folderName) {
-      
       fetchFolderFiles();
-      console.log("Folder name:", folderFiles);
     }
   }, [folderName]);
-
 
   return (
     <div className="upload-form-container">
@@ -157,13 +179,12 @@ const UploadForm = () => {
             <p>Loading files...</p>
           ) : folderFiles.length > 0 ? (
             <ul>
-  {folderFiles.map((file, index) => (
-    <li key={index}>
-      {typeof file === "string" ? file : file.original_name}
-    </li>
-  ))}
-</ul>
-
+              {folderFiles.map((file, index) => (
+                <li key={index}>
+                  {typeof file === "string" ? file : file.original_name}
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>No files found in this folder.</p>
           )}
