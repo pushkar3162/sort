@@ -47,33 +47,7 @@ const Navbar = () => {
             </button>
           </li>
 
-          {/* Theme Toggle Button with Enhanced Hover Effect */}
-          <li className="nav-item">
-            <div
-              style={{
-                border: "2px solid white",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "40px",
-                height: "40px",
-                transition: "all 0.2s ease-in-out",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = "rgba(255, 255, 255, 0.77)"; // Light transparent effect
-
-                e.target.style.transform = "scale(1.1)"; // Slightly enlarges
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = "transparent"; // Revert to transparent
-                e.target.style.border = "2px solid white"; // Revert border
-                e.target.style.transform = "scale(1)"; // Back to normal size
-              }}
-            >
-              <Themetoggle />
-            </div>
-          </li>
+          
 
           <li className="nav-item">
             <div className="vr bg-light"></div>

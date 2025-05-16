@@ -40,7 +40,7 @@ const RoleBasedUI = ({ members, setMembers }) => {
     const token = localStorage.getItem("auth_token");
     const formData = new FormData();
     formData.append("email", email);
-    formData.append("new_role", role);
+    formData.append ("new_role",role);   
 
     try {
       const response = await fetch("http://localhost:8000/auth/change-role", {

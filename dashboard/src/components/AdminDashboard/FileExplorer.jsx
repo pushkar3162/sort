@@ -80,10 +80,35 @@ const FileExplorer = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
-
+const [files, setFiles] = useState([]);
+const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
     fetchFolders();
   }, []);
+
+
+const searchFiles = async (query) => {
+  if (!query) {
+    setSearchResults([]);
+    return;
+  }
+  try {
+    const token = localStorage.getItem("auth_token");
+    const res = await axios.get(
+      `http://127.0.0.1:8000/documents/search?query=${encodeURIComponent(query)}`,
+      {
+        headers: {
+          Authorization: Bearer `${token}`,
+        },
+      }
+    );
+   console.log("Search results:", res.data);
+    setSearchResults(res.data.documents || []);
+  } catch (error) {
+    console.error("Error searching files:", error);
+    setSearchResults([]);
+  }
+};
 
   const fetchFolders = async () => {
     try {
@@ -121,7 +146,7 @@ const FileExplorer = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // ✅ Fixed template literal
+            Authorization: Bearer `${token}`, // ✅ Fixed template literal
             // Do NOT manually set Content-Type when using FormData!
           },
         }
@@ -143,7 +168,7 @@ const FileExplorer = () => {
           window.location.href = "/login"; // Redirect to login page
         } else if (Array.isArray(error.response.data.detail)) {
           const errorMessages = error.response.data.detail.map(
-            (err) => `${err.loc.join(" -> ")}: ${err.msg}` // ✅ Fixed
+            (err) => $`{err.loc.join(" -> ")}: ${err.msg}` // ✅ Fixed
           );
           alert(`Validation Errors:\n${errorMessages.join("\n")}`); // ✅ Fixed
         } else if (typeof error.response.data.detail === "string") {
@@ -182,6 +207,11 @@ const FileExplorer = () => {
     }
   };
 
+  const filteredFolders = folders.filter(folder =>
+  folder.folder_name.toLowerCase().includes(searchValue.toLowerCase())
+);
+
+
   const sortFolders = (criteria) => {
     let sortedFolders = [...folders];
 
@@ -205,11 +235,15 @@ const FileExplorer = () => {
       <div style={styles.fileExplorer}>
         <div style={styles.toolbar}>
           <input
-            style={styles.searchInput}
-            type="text"
-            placeholder="Search documents..."
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
+  style={styles.searchInput}
+  type="text"
+  placeholder="Search documents..."
+  value={searchValue}
+  onChange={(e) => {
+    setSearchValue(e.target.value);
+    searchFiles(e.target.value);
+  }}
+/>
           <button style={styles.button} onClick={createFolder}>
             📂 New
           </button>
@@ -217,7 +251,7 @@ const FileExplorer = () => {
             style={styles.button}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            ↕ Sort By {sortBy && `(${sortBy})`}
+            ↕ Sort By {sortBy && ($`{sortBy}`)}
           </button>
           <button style={styles.button} onClick={fetchFolders}>
             🔄 Refresh
@@ -234,10 +268,11 @@ const FileExplorer = () => {
           </div>
         )}
 
+        
 <div style={styles.folderContainer}>
-  {folders.length > 0 ? (
+  {filteredFolders.length > 0 ? (
     <>
-      {folders.map((folder) => (
+      {filteredFolders.map((folder) => (
         <Link key={folder.id} to={`/dashboard/${folder.folder_name}`}>
           <Folder
             folder={folder}
@@ -252,8 +287,25 @@ const FileExplorer = () => {
   )}
 </div>
       </div>
+      {searchValue && (
+  <div style={{ width: "100%", marginTop: "20px" }}>
+    <h5>Search Results:</h5>
+     
+    {searchResults.length > 0 ? (
+      <ul>
+        {searchResults.map(file => (
+          <li key={file.document_id}>
+            
+            {file.folder_name}</li>
+        ))}
+      </ul>
+    ) : (
+      <p>No files found.</p>
+    )}
+  </div>
+)}
     </DndProvider>
   );
 };
 
-export default FileExplorer;
+export default FileExplorer;
