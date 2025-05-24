@@ -1,18 +1,30 @@
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { FaSort, FaSyncAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import filesFoldersData from "../../../folderFilesData.js";
-import EditorUploadButton from "./EditorUpload.jsx"; // Import Upload Button
+import { Link, useNavigate } from "react-router-dom";
+
 import Folder from "../Folder.jsx";
+import { Height } from "@mui/icons-material";
+import { maxHeight } from "@mui/system";
+import { FaSort, FaSyncAlt } from "react-icons/fa";
+import filesFoldersData from "../../../folderFilesData.js";
+
+
+
+
+
 
 const EditorFileExplorer = () => {
-  const [folders, setFolders] = useState(filesFoldersData);
+  const [folders, setFolders] = useState([]);
+  const [selectedFolder, setSelectedFolder] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+    const navigate = useNavigate();
+  
+
 
 
   useEffect(() => {
@@ -21,12 +33,16 @@ const EditorFileExplorer = () => {
 
   const fetchFolders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/folders");
-      setFolders(res.data.folders);
+      const res = await axios.get("http://127.0.0.1:8000/folders");
+      console.log("Fetched folders:", res.data);
+      
+      setFolders(res.data ||[]);
     } catch (error) {
       console.error("Error fetching folders:", error);
+      setFolders([]);
     }
   };
+ 
 
   const sortFolders = (criteria) => {
     let sortedFolders = [...folders];
@@ -46,9 +62,7 @@ const EditorFileExplorer = () => {
     setIsDropdownOpen(false);
   };
 
-  const filteredFolders = folders.filter((folder) =>
-    folder.name.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -73,10 +87,9 @@ const EditorFileExplorer = () => {
             <FaSyncAlt /> Refresh
           </button>
           {/* Upload Button */}
-          <EditorUploadButton
-            onUploadSuccess={fetchFolders}
-            buttonStyle={styles.button}
-          />
+           <button style={styles.button} onClick={() => navigate("/Upload")}>
+            ⬆ Upload
+          </button>
         </div>
 
         {/* Sorting Dropdown */}
@@ -98,23 +111,24 @@ const EditorFileExplorer = () => {
         )}
 
         {/* Folder Display */}
-        <div style={styles.folderWrapper}>
-          <div style={styles.folderContainer}>
-            {filteredFolders.map((folder, index) => (
-              <Link
-                key={index}
-                to={`/editordashboard/${folder.name}`}
-                style={styles.folderLink}
-              >
-                <Folder
-                  key={folder.id}
-                  folder={folder}
-                  fetchFolders={fetchFolders}
-                />
-              </Link>
-            ))}
-          </div>
-        </div>
+        <div style={styles.folderContainer}>
+  {folders.length > 0 ? (
+    <>
+      {folders.map((folder) => (
+        <Link key={folder.id} to={`/editordashboard/${folder.folder_name}`}>
+          <Folder
+            folder={folder}
+            fetchFolders={fetchFolders}
+            setSelectedFolder={setSelectedFolder}
+          />
+        </Link>
+      ))}
+    </>
+  ) : (
+    <p>No folders available. Click "New" to create one!</p>
+  )}
+</div>
+        
       </div>
     </DndProvider>
   );
