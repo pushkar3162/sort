@@ -1,19 +1,47 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import filesFoldersData from "../../../folderFilesData"; // Import mock data
+import { Link, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import Ellipsis from "../Ellipsis";
 import EditorNavbar from "./EditorNavbar";
 import EditorSidebar from "./EditorSidebar";
 
 const EditorFolderDetails = () => {
   const { folderName } = useParams();
+  const navigate = useNavigate();
   const [folderData, setFolderData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchFolderFiles = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("auth_token");
+
+      const response = await axios.get(
+        "http://localhost:8000/folders/all-documents",
+        {
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
+        }
+      );
+
+      const folder = response.data.find((f) => f.folder_name === folderName);
+
+      if (!folder) {
+        console.warn(`Folder "${folderName}" not found.`);
+        setFolderData(null);
+        return;
+      }
+
+      setFolderData(folder); // Set full folder object
+    } catch (error) {
+      console.error("Failed to fetch folder contents:", error);
+      setFolderData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Find folder data from the mock dataset
-    const folder = filesFoldersData.find((f) => f.name === folderName);
-    console.log("folder:", folder);
-    setFolderData(folder);
+    fetchFolderFiles();
   }, [folderName]);
 
   const handleDelete = (fileId) => {
@@ -24,6 +52,7 @@ const EditorFolderDetails = () => {
       }));
     }
   };
+
   const handleRename = (fileId) => {
     const newName = prompt("Enter new file name:");
     if (newName) {
@@ -35,33 +64,31 @@ const EditorFolderDetails = () => {
       }));
     }
   };
+
   const handleMove = (fileId) => {
     const newFolderName = prompt("Enter the new folder name to move the file:");
     if (newFolderName) {
       alert(`Moving file ${fileId} to folder ${newFolderName}`);
-      // Here, you would handle moving the file in your actual API
+      // Add actual API logic here
     }
   };
 
-  // function to trigger
   const triggerFileInput = () => {
     document.getElementById("fileInput").click();
   };
 
-  // handle file upload
   const handleFileUpload = (event) => {
-    const file = event.target.files[0]; // Get the selected file
+    const file = event.target.files[0];
     if (file && folderData) {
       const newFile = {
         id: Date.now(),
         name: file.name,
-        size: `${(file.size / 1024).toFixed(2)} KB`, // Convert bytes to KB
+        size: `${(file.size / 1024).toFixed(2)} KB`,
       };
 
-      // Update the folder state with the new file
-      setFolderData((prevFolder) => ({
-        ...prevFolder,
-        files: [...prevFolder.files, newFile],
+      setFolderData((prev) => ({
+        ...prev,
+        files: [...prev.files, newFile],
       }));
     }
   };
@@ -105,15 +132,10 @@ const EditorFolderDetails = () => {
                 border: "none",
                 cursor: "pointer",
                 fontSize: "16px",
-                // position: "absolute",
-                // top: "20px",
-                // right: "20px",
               }}
             >
               📤 Upload
             </button>
-
-            {/* Hidden file input */}
             <input
               type="file"
               id="fileInput"
@@ -121,34 +143,41 @@ const EditorFolderDetails = () => {
               onChange={handleFileUpload}
             />
           </div>
-          {folderData ? (
-            <ul>
-              {folderData.files.map((file) => (
-                <li
-                  key={file.id}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "5px 0",
-                  }}
-                >
-                  <span>
-                    {" "}
-                    📄 {file.name} ({file.size})
-                  </span>
-                  <Ellipsis
-                    fileId={file.id}
-                    onDelete={handleDelete}
-                    onRename={handleRename}
-                    onMove={handleMove}
-                  />
-                </li>
-              ))}
-            </ul>
+
+          {loading ? (
+            <p>Loading...</p>
+          ) : folderData ? (
+            <>
+              {folderData.files && folderData.files.length > 0 ? (
+                <ul>
+                  {folderData.files.map((file) => (
+                    <li
+                      key={file.id}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "5px 0",
+                      }}
+                    >
+                      <span>📄 {file}</span>
+                      <Ellipsis
+                        fileId={file.id}
+                        onDelete={handleDelete}
+                        onRename={handleRename}
+                        onMove={handleMove}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No files in this folder.</p>
+              )}
+            </>
           ) : (
             <p>Folder not found!</p>
           )}
+
           <Link to="/editordashboard">⬅ Back to File Explorer</Link>
         </div>
       </div>
