@@ -1,28 +1,50 @@
-// MetadataModal.js - Separate component for the modal
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 
-const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
-  const [editableMetadata, setEditableMetadata] = React.useState({
-    name: metadata?.name || "",
-    createdAt: metadata?.createdAt || new Date().toISOString().split("T")[0],
-    modifiedAt: metadata?.modifiedAt || new Date().toISOString().split("T")[0],
-    owner: metadata?.owner || "Current User",
-    tags: metadata?.tags || "",
-    description: metadata?.description || "",
-    permissions: metadata?.permissions || "Private",
+const MetadataModal = ({ isOpen, onClose, onSave }) => {
+  const [editableMetadata, setEditableMetadata] = useState({
+    name: "",
+    tags: "",
+    permissions: "Private",
   });
 
+  const [documents, setDocuments] = useState(null);
+  const [matchedDocument, setMatchedDocument] = useState(null);
+
+  // 🔄 Fetch documents when modal opens
   useEffect(() => {
-    // Disable scrolling on body when modal is open
     if (isOpen) {
       document.body.style.overflow = "hidden";
+
+      axios
+        .get("http://127.0.0.1:8000/documents")
+        .then((res) => {
+          const docs = res.data || [];
+          console.log("Fetched documents:", typeof docs);
+          setDocuments(docs);
+        })
+        .catch((err) => console.error("Failed to fetch documents:", err));
     }
 
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
+
+  // 🔍 Match document based on entered name
+  useEffect(() => {
+    if (documents && documents.documents) {
+      const match = documents.documents.find(
+        (doc) => doc.title === editableMetadata.name
+      );
+      console.log("Matching document:", match);
+      setMatchedDocument(match);
+      if (match) {
+        console.log("Matched with backend document:", match);
+      }
+    }
+  }, [editableMetadata.name, documents]);
 
   const handleMetadataChange = (key, value) => {
     setEditableMetadata((prev) => ({
@@ -31,15 +53,44 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
     }));
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    onSave(editableMetadata);
-    onClose();
+    console.log("Final data to save:", editableMetadata);
+
+    if (!matchedDocument) {
+      alert("No matched document found.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("auth_token"); // or wherever your token is stored
+console.log("Using token:", token);
+const response = await axios.put(
+  `http://127.0.0.1:8000/documents/edit/${matchedDocument.document_id}`,
+  {
+    title: editableMetadata.name,
+    tags: editableMetadata.tags.split(",").map(tag => tag.trim()).filter(Boolean)
+,
+    permission: editableMetadata.permissions,
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+      
+
+      alert("Document updated successfully:", response.data);
+      onClose(); // Close the modal
+    } catch (error) {
+      console.error("Failed to update document:", error);
+    }
   };
 
   if (!isOpen) return null;
 
-  // Portal to render at document.body
   return ReactDOM.createPortal(
     <div className="metadata-modal-overlay">
       <div className="metadata-modal">
@@ -56,42 +107,7 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
                 />
               </td>
             </tr>
-            <tr>
-              <td>Created</td>
-              <td>
-                <input
-                  type="date"
-                  value={editableMetadata.createdAt}
-                  onChange={(e) =>
-                    handleMetadataChange("createdAt", e.target.value)
-                  }
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Modified</td>
-              <td>
-                <input
-                  type="date"
-                  value={editableMetadata.modifiedAt}
-                  onChange={(e) =>
-                    handleMetadataChange("modifiedAt", e.target.value)
-                  }
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Owner</td>
-              <td>
-                <input
-                  type="text"
-                  value={editableMetadata.owner}
-                  onChange={(e) =>
-                    handleMetadataChange("owner", e.target.value)
-                  }
-                />
-              </td>
-            </tr>
+
             <tr>
               <td>Tags</td>
               <td>
@@ -103,6 +119,7 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
                 />
               </td>
             </tr>
+
             <tr>
               <td>Permissions</td>
               <td>
@@ -118,20 +135,9 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
                 </select>
               </td>
             </tr>
-            <tr>
-              <td>Description</td>
-              <td>
-                <textarea
-                  value={editableMetadata.description}
-                  onChange={(e) =>
-                    handleMetadataChange("description", e.target.value)
-                  }
-                  rows="3"
-                />
-              </td>
-            </tr>
           </tbody>
         </table>
+
         <div className="modal-buttons">
           <button onClick={handleSave} className="save-button">
             Save
@@ -141,6 +147,7 @@ const MetadataModal = ({ isOpen, onClose, metadata, onSave }) => {
           </button>
         </div>
       </div>
+
       <style jsx>{`
         .metadata-modal-overlay {
           position: fixed;

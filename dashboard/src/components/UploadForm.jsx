@@ -34,7 +34,7 @@ const UploadForm = () => {
     const emailList = permissions.split(",").map((email) => email.trim());
     formData.append("permissions", JSON.stringify(emailList));
 
-    formData.append("uploaded_by", "1");
+    formData.append("uploaded_by", "5");
     formData.append("folder_name", folderName);
 
     const token = localStorage.getItem("auth_token");
@@ -174,3 +174,4 @@ const UploadForm = () => {
 };
 
 export default UploadForm;
+
